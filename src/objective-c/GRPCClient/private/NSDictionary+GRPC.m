@@ -33,7 +33,7 @@
 
 #import "NSDictionary+GRPC.h"
 
-#include <grpc.h>
+#include <grpc/grpc.h>
 
 @implementation NSDictionary (GRPC)
 + (instancetype)grpc_dictionaryFromMetadata:(grpc_metadata *)entries count:(size_t)count {
