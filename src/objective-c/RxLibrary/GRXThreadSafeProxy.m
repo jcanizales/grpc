@@ -31,24 +31,49 @@
  *
  */
 
-#import "GRXWriter+Transformations.h"
+#import "GRXThreadSafeProxy.h"
 
-#import "transformations/GRXMappingWriter.h"
+@implementation GRXThreadSafeProxy
 
-@implementation GRXWriter (Transformations)
+- (instancetype)initWithDelegate:(id)delegate {
+  // NSProxy doesn't respond to init.
 
-- (GRXWriter *)map:(id (^)(id))map {
-  if (!map) {
-    return self;
+  if (!delegate) {
+    return nil;
   }
-  return [[GRXMappingWriter alloc] initWithWriter:self map:map];
+  // TODO(jcanizales): Is it safe to do this? (Or with self.class?)
+  // if ([delegate isKindOfClass:GRXThreadSafeProxy.class]) {
+  //   return delegate;
+  // }
+
+  _delegate = delegate;
+  _threadSafe = YES;
+  return self;
 }
 
-- (instancetype)interceptingStartWithInterceptor:(id<GRXWriterInterceptor>)interceptor {
-  if (!interceptor) {
-    return self;
+- (id)forwardingTargetForSelector:(SEL)sel {
+  return self.threadSafe ? self : _delegate;
+}
+
+- (void)forwardInvocation:(NSInvocation *)invocation {
+  invocation.target = _delegate;
+  if (self.threadSafe) {
+    @synchronized(_delegate) {
+      [invocation invoke];
+    }
+  } else {
+    [invocation invoke];
   }
-  return (id)[[GRXInterceptedWriter alloc] initWithWriter:self interceptor:interceptor];
+}
+
+- (NSMethodSignature *)methodSignatureForSelector:(SEL)sel {
+  if (self.threadSafe) {
+    @synchronized(_delegate) {
+      return [_delegate methodSignatureForSelector:sel];
+    }
+  } else {
+    return [_delegate methodSignatureForSelector:sel];
+  }
 }
 
 @end

@@ -33,10 +33,15 @@
 
 #import "GRXWriter.h"
 
+#import "GRXInterceptedWriter.h"
+
 @interface GRXWriter (Transformations)
 
 // Returns a writer that wraps the receiver, and has all the values the receiver would write
 // transformed by the provided mapping function.
+// TODO(jcanizales): Make it instancetype.
 - (GRXWriter *)map:(id (^)(id value))map;
+
+- (instancetype)interceptingStartWithInterceptor:(id<GRXWriterInterceptor>)interceptor;
 
 @end

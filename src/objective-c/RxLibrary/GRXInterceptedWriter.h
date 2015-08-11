@@ -31,24 +31,18 @@
  *
  */
 
-#import "GRXWriter+Transformations.h"
+#import "GRXThreadSafeProxy.h"
 
-#import "transformations/GRXMappingWriter.h"
+@class GRXWriter;
 
-@implementation GRXWriter (Transformations)
+@protocol GRXWriterInterceptor <NSObject>
+- (void)interceptStartOfWriter:(GRXWriter *)writer
+         withCompletionHandler:(void (^)(NSError *error))completionHandler;
+@end
 
-- (GRXWriter *)map:(id (^)(id))map {
-  if (!map) {
-    return self;
-  }
-  return [[GRXMappingWriter alloc] initWithWriter:self map:map];
-}
+@interface GRXInterceptedWriter : GRXThreadSafeProxy
 
-- (instancetype)interceptingStartWithInterceptor:(id<GRXWriterInterceptor>)interceptor {
-  if (!interceptor) {
-    return self;
-  }
-  return (id)[[GRXInterceptedWriter alloc] initWithWriter:self interceptor:interceptor];
-}
+- (instancetype)initWithWriter:(GRXWriter *)writer
+                   interceptor:(id<GRXWriterInterceptor>)interceptor NS_DESIGNATED_INITIALIZER;
 
 @end

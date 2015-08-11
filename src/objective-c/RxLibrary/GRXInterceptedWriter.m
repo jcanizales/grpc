@@ -31,24 +31,47 @@
  *
  */
 
-#import "GRXWriter+Transformations.h"
+#import "GRXInterceptedWriter.h"
 
-#import "transformations/GRXMappingWriter.h"
+#import "GRXWriter.h"
 
-@implementation GRXWriter (Transformations)
-
-- (GRXWriter *)map:(id (^)(id))map {
-  if (!map) {
-    return self;
-  }
-  return [[GRXMappingWriter alloc] initWithWriter:self map:map];
+@implementation GRXInterceptedWriter {
+  id<GRXWriterInterceptor> _interceptor;
 }
 
-- (instancetype)interceptingStartWithInterceptor:(id<GRXWriterInterceptor>)interceptor {
-  if (!interceptor) {
-    return self;
-  }
-  return (id)[[GRXInterceptedWriter alloc] initWithWriter:self interceptor:interceptor];
+- (instancetype)initWithDelegate:(id)delegate {
+  return [self initWithWriter:delegate interceptor:nil];
 }
+
+// Designated initializer
+- (instancetype)initWithWriter:(GRXWriter *)writer
+                   interceptor:(id<GRXWriterInterceptor>)interceptor {
+  // TODO(jcanizales): The following would mess with subclasses that wanted to access threadSafe or
+  // delegate.
+  // if (!interceptor) {
+  //   return (id)writer;
+  // }
+  if ((self = [super initWithDelegate:writer])) {
+    _interceptor = interceptor;
+  }
+  return self;
+}
+
+- (void)startWithWriteable:(id<GRXWriteable>)writeable {
+  if (_interceptor) {
+    [_interceptor interceptStartOfWriter:(id)self withCompletionHandler:^(NSError *error) {
+      self.threadSafe = NO;
+      if (error) {
+        [writeable writesFinishedWithError:error];
+      } else {
+        [((GRXWriter *)self.delegate) startWithWriteable:writeable];
+      }
+    }];
+  } else {
+    [((GRXWriter *)self.delegate) startWithWriteable:writeable];
+  }
+}
+
+// TODO(jcanizales): And what about cancelling while the interceptor is still processing?
 
 @end
