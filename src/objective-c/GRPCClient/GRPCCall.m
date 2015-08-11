@@ -232,11 +232,43 @@ NSString * const kGRPCStatusMetadataKey = @"io.grpc.StatusMetadataKey";
 
 #pragma mark Send headers
 
-// TODO(jcanizales): Rename to commitHeaders.
-- (void)sendHeaders:(NSDictionary *)metadata {
-  // TODO(jcanizales): Add error handlers for async failures
-  [_wrappedCall startBatchWithOperations:@[[[GRPCOpSendMetadata alloc]
-                                            initWithMetadata:metadata ?: @{} handler:nil]]];
+
+
+- (void)sendHeaders:(NSMutableDictionary *)metadata withHandler:(void (^)(NSError *error))handler {
+  // For use cases like OAuth2 access tokens, the header value needs to be asynchronously requested
+  // when the RPC is about to start. This is supported by the user setting a GRXWriter as the value
+  // of a header. Here we request any such header values and continue when all are obtained.
+  NSMutableArray *pendingHeaders = [NSMutableArray array];
+  __block NSError *error;
+  for (NSString *key in metadata) {
+    if ([metadata[key] isKindOfClass:GRXWriter.class]) {
+      [pendingHeaders addObject:key];
+    }
+  }
+  for (NSString *key in pendingHeaders) {
+    GRXWriter *writer = metadata[key];
+    [writer startWithWriteable:[GRXWriteable writeableWithSingleValueHandler:^(id value, NSError *errorOrNil) {
+      @synchronized(metadata) {
+        if (value) {
+          metadata[key] = value;
+        } else {
+          error = errorOrNil;
+        }
+        [pendingHeaders removeObject:writer];
+        if (!pendingHeaders.count) {
+          // continuation!
+        }
+      }
+    }]];
+  }
+
+  GRPCOperation *operation = [[GRPCOpSendMetadata alloc] initWithMetadata:metadata handler:^{
+    handler(nil);
+  }];
+  [_wrappedCall startBatchWithOperations:@[operation] errorHandler:^{
+    // TODO(jcanizales): Review this error.
+    handler([NSError errorWithDomain:@"org.grpc" code:2 userInfo:nil]);
+  }];
 }
 
 #pragma mark GRXWriteable implementation
@@ -356,8 +388,15 @@ NSString * const kGRPCStatusMetadataKey = @"io.grpc.StatusMetadataKey";
   _retainSelf = self;
 
   _responseWriteable = [[GRXConcurrentWriteable alloc] initWithWriteable:writeable];
-  [self sendHeaders:_requestMetadata];
-  [self invokeCall];
+
+  __weak GRPCCall *weakSelf = self;
+  [self sendHeaders:_requestMetadata withHandler:^(NSError *error) {
+    if (!error) {
+      [weakSelf invokeCall];
+    } else {
+      [weakSelf finishWithError:error];
+    }
+  }];
 }
 
 - (void)setState:(GRXWriterState)newState {
