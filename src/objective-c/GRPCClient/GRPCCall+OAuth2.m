@@ -33,10 +33,6 @@
 
 #import "GRPCCall+OAuth2.h"
 
-static NSString * const kAuthorizationHeader = @"authorization";
-static NSString * const kBearerPrefix = @"Bearer ";
-static NSString * const kChallengeHeader = @"www-authenticate";
-
 @implementation GRPCCall (OAuth2)
 
 - (NSString *)oauth2AccessToken {
@@ -51,6 +47,15 @@ static NSString * const kChallengeHeader = @"www-authenticate";
 - (void)setOauth2AccessToken:(NSString *)token {
   if (token) {
     self.requestMetadata[kAuthorizationHeader] = [kBearerPrefix stringByAppendingString:token];
+  } else {
+    [self.requestMetadata removeObjectForKey:kAuthorizationHeader];
+  }
+}
+
+- (void)setOauth2Credentials:(id<GRXOAuth2Credentials>)credentials {
+  if (credentials) {
+    GRXWriter *headerWriter = [GRXWriter authorizationHeaderWriterWithCredentials:credentials];
+    self.requestMetadata[kAuthorizationHeader] = headerWriter;
   } else {
     [self.requestMetadata removeObjectForKey:kAuthorizationHeader];
   }

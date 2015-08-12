@@ -31,24 +31,17 @@
  *
  */
 
-#import <RxLibrary/GRXWriter+OAuth2.h>
+#import "GRXWriter.h"
 
-#import "GRPCCall.h"
+// TODO(jcanizales): Document.
+extern NSString * const kAuthorizationHeader;
+extern NSString * const kBearerPrefix;
+extern NSString * const kChallengeHeader;
 
-// Helpers for setting and reading headers compatible with OAuth2.
-@interface GRPCCall (OAuth2)
+@protocol GRXOAuth2Credentials <NSObject>
+- (void)getAccessTokenWithHandler:(void (^)(NSString *accessToken, NSError *error))handler;
+@end
 
-// Setting this property is equivalent to setting "Bearer <passed token>" as the value of the
-// request header with key "authorization" (the authorization header). Setting it to nil removes the
-// authorization header from the request.
-// The value obtained by getting the property is the OAuth2 bearer token if the authorization header
-// of the request has the form "Bearer <token>", or nil otherwise.
-@property(atomic, copy) NSString *oauth2AccessToken;
-
-// TODO(jcanizales): Document. nonatomic
-- (void)setOauth2Credentials:(id<GRXOAuth2Credentials>)credentials;
-
-// Returns the value (if any) of the "www-authenticate" response header (the challenge header).
-@property(atomic, readonly) NSString *oauth2ChallengeHeader;
-
+@interface GRXWriter (OAuth2)
++ (GRXWriter *)authorizationHeaderWriterWithCredentials:(id<GRXOAuth2Credentials>)credentials;
 @end
