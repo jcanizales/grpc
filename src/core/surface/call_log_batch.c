@@ -33,7 +33,7 @@
 
 #include "src/core/surface/call.h"
 
-#include "src/core/support/string.h"
+#include "src/core/support/grpc_string.h"
 #include <grpc/support/alloc.h>
 #include <grpc/support/string_util.h>
 

@@ -37,7 +37,7 @@
 #include <string.h>
 #include <grpc/support/alloc.h>
 #include <grpc/support/log.h>
-#include <grpc/support/time.h>
+#include <grpc/support/grpc_time.h>
 #include <grpc/support/useful.h>
 
 /* typedefs make typing long names easier. Use cws (for census_window_stats) */

@@ -37,7 +37,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "src/core/support/string.h"
+#include "src/core/support/grpc_string.h"
 #include "src/core/transport/transport.h"
 #include <grpc/byte_buffer.h>
 #include <grpc/support/alloc.h>

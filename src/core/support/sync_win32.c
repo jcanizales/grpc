@@ -39,7 +39,7 @@
 
 #include <grpc/support/log.h>
 #include <grpc/support/sync.h>
-#include <grpc/support/time.h>
+#include <grpc/support/grpc_time.h>
 
 void gpr_mu_init(gpr_mu *mu) {
   InitializeCriticalSection(&mu->cs);

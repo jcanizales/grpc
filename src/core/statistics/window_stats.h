@@ -34,7 +34,7 @@
 #ifndef GRPC_INTERNAL_CORE_STATISTICS_WINDOW_STATS_H
 #define GRPC_INTERNAL_CORE_STATISTICS_WINDOW_STATS_H
 
-#include <grpc/support/time.h>
+#include <grpc/support/grpc_time.h>
 
 /* Keep rolling sums of a user-defined statistic (containing a number of
    measurements) over a a number of time intervals ("windows"). For example,

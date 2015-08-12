@@ -37,7 +37,7 @@
 
 #ifdef GPR_WIN32
 
-#include <grpc/support/time.h>
+#include <grpc/support/grpc_time.h>
 #include <sys/timeb.h>
 
 static LARGE_INTEGER g_start_time;

@@ -35,7 +35,7 @@
 #define GRPC_CORE_PROFILING_TIMERS_PRECISECLOCK_H
 
 #include <grpc/support/sync.h>
-#include <grpc/support/time.h>
+#include <grpc/support/grpc_time.h>
 #include <stdio.h>
 
 #ifdef GRPC_TIMERS_RDTSC

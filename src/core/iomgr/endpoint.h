@@ -37,7 +37,7 @@
 #include "src/core/iomgr/pollset.h"
 #include "src/core/iomgr/pollset_set.h"
 #include <grpc/support/slice.h>
-#include <grpc/support/time.h>
+#include <grpc/support/grpc_time.h>
 
 /* An endpoint caps a streaming channel between two communicating processes.
    Examples may be: a tcp socket, <stdin+stdout>, or some shared memory. */

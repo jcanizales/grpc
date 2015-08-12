@@ -41,13 +41,13 @@
 #include "src/core/json/json.h"
 #include "src/core/httpcli/httpcli.h"
 #include "src/core/iomgr/iomgr.h"
-#include "src/core/support/string.h"
+#include "src/core/support/grpc_string.h"
 
 #include <grpc/support/alloc.h>
 #include <grpc/support/log.h>
 #include <grpc/support/string_util.h>
 #include <grpc/support/sync.h>
-#include <grpc/support/time.h>
+#include <grpc/support/grpc_time.h>
 
 /* -- Common. -- */
 

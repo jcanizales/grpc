@@ -36,7 +36,7 @@
 #ifdef GPR_WIN32
 
 #include "src/core/support/env.h"
-#include "src/core/support/string.h"
+#include "src/core/support/grpc_string.h"
 
 #include <stdlib.h>
 

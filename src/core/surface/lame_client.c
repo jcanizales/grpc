@@ -36,7 +36,7 @@
 #include <string.h>
 
 #include "src/core/channel/channel_stack.h"
-#include "src/core/support/string.h"
+#include "src/core/support/grpc_string.h"
 #include "src/core/surface/channel.h"
 #include "src/core/surface/call.h"
 #include <grpc/support/alloc.h>

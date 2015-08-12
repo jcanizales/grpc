@@ -40,7 +40,7 @@
 #include <grpc/support/string_util.h>
 
 #include "src/core/security/base64.h"
-#include "src/core/support/string.h"
+#include "src/core/support/grpc_string.h"
 
 #include <openssl/bio.h>
 #include <openssl/evp.h>

@@ -37,7 +37,7 @@
 #include <grpc/grpc.h>
 #include <grpc/support/port_platform.h>
 #include <grpc/support/slice.h>
-#include <grpc/support/time.h>
+#include <grpc/support/grpc_time.h>
 #include "src/core/transport/metadata.h"
 
 /* this many stream ops are inlined into a sopb before allocating */

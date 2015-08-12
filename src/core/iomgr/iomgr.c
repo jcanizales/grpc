@@ -37,7 +37,7 @@
 
 #include "src/core/iomgr/iomgr_internal.h"
 #include "src/core/iomgr/alarm_internal.h"
-#include "src/core/support/string.h"
+#include "src/core/support/grpc_string.h"
 #include <grpc/support/alloc.h>
 #include <grpc/support/log.h>
 #include <grpc/support/string_util.h>

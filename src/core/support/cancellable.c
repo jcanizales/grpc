@@ -35,7 +35,7 @@
 
 #include <grpc/support/atm.h>
 #include <grpc/support/sync.h>
-#include <grpc/support/time.h>
+#include <grpc/support/grpc_time.h>
 
 void gpr_cancellable_init(gpr_cancellable *c) {
   gpr_mu_init(&c->mu);

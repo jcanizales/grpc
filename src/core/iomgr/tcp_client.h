@@ -37,7 +37,7 @@
 #include "src/core/iomgr/endpoint.h"
 #include "src/core/iomgr/pollset_set.h"
 #include "src/core/iomgr/sockaddr.h"
-#include <grpc/support/time.h>
+#include <grpc/support/grpc_time.h>
 
 /* Asynchronously connect to an address (specified as (addr, len)), and call
    cb with arg and the completed connection when done (or call cb with arg and

@@ -39,7 +39,7 @@
 #include <grpc/support/log.h>
 #include <grpc/support/string_util.h>
 
-#include "src/core/support/string.h"
+#include "src/core/support/grpc_string.h"
 #include "src/core/channel/channel_stack.h"
 #include "src/core/security/security_context.h"
 #include "src/core/security/security_connector.h"

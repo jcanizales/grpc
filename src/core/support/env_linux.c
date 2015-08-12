@@ -47,7 +47,7 @@
 #include <grpc/support/log.h>
 #include <grpc/support/string_util.h>
 
-#include "src/core/support/string.h"
+#include "src/core/support/grpc_string.h"
 
 char *gpr_getenv(const char *name) {
   char *result = secure_getenv(name);

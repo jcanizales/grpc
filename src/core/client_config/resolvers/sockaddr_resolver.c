@@ -47,7 +47,7 @@
 
 #include "src/core/client_config/lb_policies/pick_first.h"
 #include "src/core/iomgr/resolve_address.h"
-#include "src/core/support/string.h"
+#include "src/core/support/grpc_string.h"
 
 typedef struct {
   /** base class: must be first */

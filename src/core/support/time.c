@@ -33,7 +33,7 @@
 
 /* Generic implementation of time calls. */
 
-#include <grpc/support/time.h>
+#include <grpc/support/grpc_time.h>
 #include <limits.h>
 #include <stdio.h>
 #include <string.h>

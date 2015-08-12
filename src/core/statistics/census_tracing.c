@@ -38,7 +38,7 @@
 #include <string.h>
 
 #include "src/core/statistics/hash_table.h"
-#include "src/core/support/string.h"
+#include "src/core/support/grpc_string.h"
 #include <grpc/support/alloc.h>
 #include <grpc/support/log.h>
 #include <grpc/support/port_platform.h>

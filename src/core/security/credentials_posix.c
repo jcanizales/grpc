@@ -42,7 +42,7 @@
 #include <grpc/support/string_util.h>
 
 #include "src/core/support/env.h"
-#include "src/core/support/string.h"
+#include "src/core/support/grpc_string.h"
 
 char *grpc_get_well_known_google_credentials_file_path(void) {
   char *result = NULL;

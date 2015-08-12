@@ -39,7 +39,7 @@
 #include <time.h>
 #include <unistd.h>
 #include <grpc/support/log.h>
-#include <grpc/support/time.h>
+#include <grpc/support/grpc_time.h>
 
 static struct timespec timespec_from_gpr(gpr_timespec gts) {
   struct timespec rv;

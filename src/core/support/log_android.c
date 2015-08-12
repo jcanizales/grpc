@@ -36,7 +36,7 @@
 #ifdef GPR_ANDROID
 
 #include <grpc/support/log.h>
-#include <grpc/support/time.h>
+#include <grpc/support/grpc_time.h>
 #include <stdio.h>
 #include <stdarg.h>
 #include <string.h>

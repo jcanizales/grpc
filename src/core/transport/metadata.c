@@ -43,7 +43,7 @@
 #include <grpc/support/log.h>
 #include "src/core/support/murmur_hash.h"
 #include "src/core/transport/chttp2/bin_encoder.h"
-#include <grpc/support/time.h>
+#include <grpc/support/grpc_time.h>
 
 #define INITIAL_STRTAB_CAPACITY 4
 #define INITIAL_MDTAB_CAPACITY 4

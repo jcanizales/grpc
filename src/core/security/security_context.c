@@ -35,7 +35,7 @@
 
 #include "src/core/security/security_context.h"
 #include "src/core/surface/call.h"
-#include "src/core/support/string.h"
+#include "src/core/support/grpc_string.h"
 
 #include <grpc/grpc_security.h>
 #include <grpc/support/alloc.h>

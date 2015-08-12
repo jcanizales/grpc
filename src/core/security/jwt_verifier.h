@@ -38,7 +38,7 @@
 #include "src/core/json/json.h"
 
 #include <grpc/support/slice.h>
-#include <grpc/support/time.h>
+#include <grpc/support/grpc_time.h>
 
 /* --- Constants. --- */
 

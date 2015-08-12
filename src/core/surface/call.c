@@ -43,7 +43,7 @@
 #include "src/core/channel/channel_stack.h"
 #include "src/core/iomgr/alarm.h"
 #include "src/core/profiling/timers.h"
-#include "src/core/support/string.h"
+#include "src/core/support/grpc_string.h"
 #include "src/core/surface/byte_buffer_queue.h"
 #include "src/core/surface/call.h"
 #include "src/core/surface/channel.h"

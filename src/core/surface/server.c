@@ -46,7 +46,7 @@
 #include "src/core/channel/connected_channel.h"
 #include "src/core/iomgr/iomgr.h"
 #include "src/core/support/stack_lockfree.h"
-#include "src/core/support/string.h"
+#include "src/core/support/grpc_string.h"
 #include "src/core/surface/call.h"
 #include "src/core/surface/channel.h"
 #include "src/core/surface/completion_queue.h"

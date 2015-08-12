@@ -31,7 +31,7 @@
  *
  */
 
-#include "src/core/support/string.h"
+#include "src/core/support/grpc_string.h"
 
 #include <ctype.h>
 #include <stddef.h>

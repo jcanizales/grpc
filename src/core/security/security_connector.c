@@ -40,7 +40,7 @@
 #include "src/core/security/security_context.h"
 #include "src/core/support/env.h"
 #include "src/core/support/file.h"
-#include "src/core/support/string.h"
+#include "src/core/support/grpc_string.h"
 #include "src/core/transport/chttp2/alpn.h"
 
 #include <grpc/support/alloc.h>

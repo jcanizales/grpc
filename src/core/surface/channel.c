@@ -41,7 +41,7 @@
 #include <grpc/support/string_util.h>
 
 #include "src/core/iomgr/iomgr.h"
-#include "src/core/support/string.h"
+#include "src/core/support/grpc_string.h"
 #include "src/core/surface/call.h"
 #include "src/core/surface/init.h"
 

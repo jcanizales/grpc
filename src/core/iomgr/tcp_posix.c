@@ -49,9 +49,9 @@
 #include <grpc/support/slice.h>
 #include <grpc/support/string_util.h>
 #include <grpc/support/sync.h>
-#include <grpc/support/time.h>
+#include <grpc/support/grpc_time.h>
 
-#include "src/core/support/string.h"
+#include "src/core/support/grpc_string.h"
 #include "src/core/debug/trace.h"
 #include "src/core/profiling/timers.h"
 

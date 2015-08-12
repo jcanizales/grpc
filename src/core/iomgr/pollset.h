@@ -35,7 +35,7 @@
 #define GRPC_INTERNAL_CORE_IOMGR_POLLSET_H
 
 #include <grpc/support/port_platform.h>
-#include <grpc/support/time.h>
+#include <grpc/support/grpc_time.h>
 
 #define GRPC_POLLSET_KICK_BROADCAST ((grpc_pollset_worker *)1)
 

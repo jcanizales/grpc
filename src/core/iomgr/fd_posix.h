@@ -38,7 +38,7 @@
 #include "src/core/iomgr/pollset.h"
 #include <grpc/support/atm.h>
 #include <grpc/support/sync.h>
-#include <grpc/support/time.h>
+#include <grpc/support/grpc_time.h>
 
 typedef struct grpc_fd grpc_fd;
 

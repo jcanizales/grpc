@@ -36,7 +36,7 @@
 
 #include <stddef.h>
 
-#include <grpc/support/time.h>
+#include <grpc/support/grpc_time.h>
 
 #include "src/core/iomgr/endpoint.h"
 #include "src/core/iomgr/pollset_set.h"

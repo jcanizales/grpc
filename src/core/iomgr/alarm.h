@@ -36,7 +36,7 @@
 
 #include "src/core/iomgr/iomgr.h"
 #include <grpc/support/port_platform.h>
-#include <grpc/support/time.h>
+#include <grpc/support/grpc_time.h>
 
 typedef struct grpc_alarm {
   gpr_timespec deadline;

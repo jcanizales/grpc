@@ -35,7 +35,7 @@
 #define GRPC_INTERNAL_CORE_IOMGR_ALARM_INTERNAL_H
 
 #include <grpc/support/sync.h>
-#include <grpc/support/time.h>
+#include <grpc/support/grpc_time.h>
 
 /* iomgr internal api for dealing with alarms */
 

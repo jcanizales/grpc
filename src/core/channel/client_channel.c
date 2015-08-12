@@ -40,7 +40,7 @@
 #include "src/core/channel/connected_channel.h"
 #include "src/core/surface/channel.h"
 #include "src/core/iomgr/iomgr.h"
-#include "src/core/support/string.h"
+#include "src/core/support/grpc_string.h"
 #include "src/core/transport/connectivity_state.h"
 #include <grpc/support/alloc.h>
 #include <grpc/support/log.h>

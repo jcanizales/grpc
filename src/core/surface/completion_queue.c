@@ -37,7 +37,7 @@
 #include <string.h>
 
 #include "src/core/iomgr/pollset.h"
-#include "src/core/support/string.h"
+#include "src/core/support/grpc_string.h"
 #include "src/core/surface/call.h"
 #include "src/core/surface/event_string.h"
 #include "src/core/surface/surface_trace.h"

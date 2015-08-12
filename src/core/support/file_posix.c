@@ -46,7 +46,7 @@
 #include <grpc/support/log.h>
 #include <grpc/support/string_util.h>
 
-#include "src/core/support/string.h"
+#include "src/core/support/grpc_string.h"
 
 FILE *gpr_tmpfile(const char *prefix, char **tmp_filename) {
   FILE *result = NULL;

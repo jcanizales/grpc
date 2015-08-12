@@ -44,7 +44,7 @@
 #include <grpc/support/useful.h>
 
 #include "src/core/profiling/timers.h"
-#include "src/core/support/string.h"
+#include "src/core/support/grpc_string.h"
 #include "src/core/transport/chttp2/http2_errors.h"
 #include "src/core/transport/chttp2/internal.h"
 #include "src/core/transport/chttp2/status_conversion.h"

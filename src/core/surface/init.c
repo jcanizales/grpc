@@ -35,7 +35,7 @@
 
 #include <grpc/census.h>
 #include <grpc/grpc.h>
-#include <grpc/support/time.h>
+#include <grpc/support/grpc_time.h>
 #include "src/core/channel/channel_stack.h"
 #include "src/core/client_config/resolver_registry.h"
 #include "src/core/client_config/resolvers/dns_resolver.h"

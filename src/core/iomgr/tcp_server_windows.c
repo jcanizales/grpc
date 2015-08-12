@@ -43,7 +43,7 @@
 #include <grpc/support/log_win32.h>
 #include <grpc/support/string_util.h>
 #include <grpc/support/sync.h>
-#include <grpc/support/time.h>
+#include <grpc/support/grpc_time.h>
 
 #include "src/core/iomgr/iocp_windows.h"
 #include "src/core/iomgr/pollset_windows.h"

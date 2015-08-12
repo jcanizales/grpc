@@ -43,7 +43,7 @@
 #include <grpc/support/alloc.h>
 #include <grpc/support/log.h>
 #include <grpc/support/slice.h>
-#include <grpc/support/time.h>
+#include <grpc/support/grpc_time.h>
 
 typedef struct call_data {
   census_op_id op_id;

@@ -41,10 +41,10 @@
 #include <grpc/support/alloc.h>
 #include <grpc/support/log_win32.h>
 #include <grpc/support/log.h>
-#include <grpc/support/time.h>
+#include <grpc/support/grpc_time.h>
 #include <grpc/support/string_util.h>
 
-#include "src/core/support/string.h"
+#include "src/core/support/grpc_string.h"
 #include "src/core/support/string_win32.h"
 
 void gpr_log(const char *file, int line, gpr_log_severity severity,

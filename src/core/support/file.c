@@ -40,7 +40,7 @@
 #include <grpc/support/log.h>
 #include <grpc/support/string_util.h>
 
-#include "src/core/support/string.h"
+#include "src/core/support/grpc_string.h"
 
 gpr_slice gpr_load_file(const char *filename, int add_null_terminator,
                         int *success) {

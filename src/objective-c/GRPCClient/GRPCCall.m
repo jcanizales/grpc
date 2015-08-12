@@ -34,7 +34,7 @@
 #import "GRPCCall.h"
 
 #include <grpc/grpc.h>
-#include <grpc/support/time.h>
+#include <grpc/support/grpc_time.h>
 
 #import <RxLibrary/NSDictionary+GRXUtil.h>
 #import <RxLibrary/GRXConcurrentWriteable.h>

@@ -40,7 +40,7 @@
 
 #include <grpc/support/alloc.h>
 #include <grpc/support/log.h>
-#include <grpc/support/time.h>
+#include <grpc/support/grpc_time.h>
 #include <grpc/support/sync.h>
 #include <grpc/support/thd.h>
 #include <stdio.h>

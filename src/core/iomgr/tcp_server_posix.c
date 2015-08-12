@@ -60,12 +60,12 @@
 #include "src/core/iomgr/sockaddr_utils.h"
 #include "src/core/iomgr/socket_utils_posix.h"
 #include "src/core/iomgr/tcp_posix.h"
-#include "src/core/support/string.h"
+#include "src/core/support/grpc_string.h"
 #include <grpc/support/alloc.h>
 #include <grpc/support/log.h>
 #include <grpc/support/string_util.h>
 #include <grpc/support/sync.h>
-#include <grpc/support/time.h>
+#include <grpc/support/grpc_time.h>
 
 #define INIT_PORT_CAP 2
 #define MIN_SAFE_ACCEPT_QUEUE_SIZE 100

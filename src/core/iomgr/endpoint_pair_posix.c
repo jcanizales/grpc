@@ -44,7 +44,7 @@
 #include <sys/socket.h>
 
 #include "src/core/iomgr/tcp_posix.h"
-#include "src/core/support/string.h"
+#include "src/core/support/grpc_string.h"
 #include <grpc/support/alloc.h>
 #include <grpc/support/log.h>
 #include <grpc/support/string_util.h>
