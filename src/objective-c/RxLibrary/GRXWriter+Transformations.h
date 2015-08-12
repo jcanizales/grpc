@@ -42,6 +42,6 @@
 
 + (GRXWriter *)zipDictionary:(NSDictionary *)writers;
 
-+ (void)zipDictionary:(NSDictionary *)writers withSingleHandler:(GRXSingleHandler)handler;
++ (void)zipDictionary:(NSDictionary *)writers withSingleHandler:(GRXSingleValueHandler)handler;
 
 @end

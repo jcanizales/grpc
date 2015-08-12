@@ -49,9 +49,9 @@
   return [GRXZippingWriter writerWithWriters:writers];
 }
 
-+ (void)zipDictionary:(NSDictionary *)writers withSingleHandler:(GRXSingleHandler)handler {
++ (void)zipDictionary:(NSDictionary *)writers withSingleHandler:(GRXSingleValueHandler)handler {
   [[self zipDictionary:writers]
-   startWithWriteable:[GRXWriteable writeableWithSingleHandler:handler]];
+   startWithWriteable:[GRXWriteable writeableWithSingleValueHandler:handler]];
 }
 
 @end
