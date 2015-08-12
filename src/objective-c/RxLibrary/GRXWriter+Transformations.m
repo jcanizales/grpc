@@ -44,11 +44,4 @@
   return [[GRXMappingWriter alloc] initWithWriter:self map:map];
 }
 
-- (instancetype)interceptingStartWithInterceptor:(id<GRXWriterInterceptor>)interceptor {
-  if (!interceptor) {
-    return self;
-  }
-  return (id)[[GRXInterceptedWriter alloc] initWithWriter:self interceptor:interceptor];
-}
-
 @end
