@@ -35,7 +35,10 @@
 
 #include <grpc/grpc.h>
 #include <grpc/support/time.h>
+
+#import <RxLibrary/NSDictionary+GRXUtil.h>
 #import <RxLibrary/GRXConcurrentWriteable.h>
+#import <RxLibrary/GRXWriter+Transformations.h>
 
 #import "private/GRPCWrappedCall.h"
 #import "private/NSData+GRPC.h"
@@ -232,42 +235,29 @@ NSString * const kGRPCStatusMetadataKey = @"io.grpc.StatusMetadataKey";
 
 #pragma mark Send headers
 
-
-
-- (void)sendHeaders:(NSMutableDictionary *)metadata withHandler:(void (^)(NSError *error))handler {
+- (void)sendHeaders:(NSDictionary *)metadata withHandler:(void (^)(NSError *error))handler {
   // For use cases like OAuth2 access tokens, the header value needs to be asynchronously requested
   // when the RPC is about to start. This is supported by the user setting a GRXWriter as the value
   // of a header. Here we request any such header values and continue when all are obtained.
-  NSMutableArray *pendingHeaders = [NSMutableArray array];
-  __block NSError *error;
-  for (NSString *key in metadata) {
-    if ([metadata[key] isKindOfClass:GRXWriter.class]) {
-      [pendingHeaders addObject:key];
+  [GRXWriter zipDictionary:metadata.grx_asDictionaryOfWriters
+         withSingleHandler:^(NSDictionary *metadata, NSError *error) {
+    if (error) {
+      handler(error);
+      return;
     }
-  }
-  for (NSString *key in pendingHeaders) {
-    GRXWriter *writer = metadata[key];
-    [writer startWithWriteable:[GRXWriteable writeableWithSingleValueHandler:^(id value, NSError *errorOrNil) {
-      @synchronized(metadata) {
-        if (value) {
-          metadata[key] = value;
-        } else {
-          error = errorOrNil;
-        }
-        [pendingHeaders removeObject:writer];
-        if (!pendingHeaders.count) {
-          // continuation!
-        }
-      }
-    }]];
-  }
+    // All header values are now obtained. Set them so they can be queried by the user.
+    // TODO(jcanizales): Make this thread-safe as part of the metadata work.
+    [_requestMetadata setValuesForKeysWithDictionary:metadata];
 
-  GRPCOperation *operation = [[GRPCOpSendMetadata alloc] initWithMetadata:metadata handler:^{
-    handler(nil);
-  }];
-  [_wrappedCall startBatchWithOperations:@[operation] errorHandler:^{
-    // TODO(jcanizales): Review this error.
-    handler([NSError errorWithDomain:@"org.grpc" code:2 userInfo:nil]);
+    // TODO(jcanizales): Turn the errorHandler of startBatchWithOperations into completionHandler,
+    // and remove the handler from GRPCOpSendMetadata.
+    GRPCOperation *operation = [[GRPCOpSendMetadata alloc] initWithMetadata:metadata handler:^{
+      handler(nil);
+    }];
+    [_wrappedCall startBatchWithOperations:@[operation] errorHandler:^{
+      // TODO(jcanizales): Review this error. Should be UNKNOWN?
+      handler([NSError errorWithDomain:@"org.grpc" code:2 userInfo:nil]);
+    }];
   }];
 }
 
