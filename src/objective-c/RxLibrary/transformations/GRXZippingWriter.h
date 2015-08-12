@@ -31,27 +31,9 @@
  *
  */
 
-#import "GRXWriter+Transformations.h"
+#import "GRXWriter.h"
 
-#import "transformations/GRXMappingWriter.h"
-#import "transformations/GRXZippingWriter.h"
-
-@implementation GRXWriter (Transformations)
-
-- (GRXWriter *)map:(id (^)(id))map {
-  if (!map) {
-    return self;
-  }
-  return [[GRXMappingWriter alloc] initWithWriter:self map:map];
-}
-
-+ (GRXWriter *)zipDictionary:(NSDictionary *)writers {
-  return [GRXZippingWriter writerWithWriters:writers];
-}
-
-+ (void)zipDictionary:(NSDictionary *)writers withSingleHandler:(GRXSingleHandler)handler {
-  [[self zipDictionary:writers]
-   startWithWriteable:[GRXWriteable writeableWithSingleHandler:handler]];
-}
-
+@interface GRXZippingWriter : GRXWriter
++ (instancetype)writerWithWriters:(NSDictionary *)writers;
+- (instancetype)initWithWriters:(NSDictionary *)writers;
 @end

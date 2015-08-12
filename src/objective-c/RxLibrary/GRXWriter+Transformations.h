@@ -40,4 +40,8 @@
 // TODO(jcanizales): Make it instancetype.
 - (GRXWriter *)map:(id (^)(id value))map;
 
++ (GRXWriter *)zipDictionary:(NSDictionary *)writers;
+
++ (void)zipDictionary:(NSDictionary *)writers withSingleHandler:(GRXSingleHandler)handler;
+
 @end
