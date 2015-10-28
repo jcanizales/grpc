@@ -1,8 +1,10 @@
 language: objective-c
 osx_image: xcode7.1
 cache:
-  - cocoapods
-  - ccache
+  cocoapods: true
+  # For some reason listing ccache doesn't validate
+  directories:
+    - $HOME/.ccache
 env:
   global:
     - CONFIG=opt
@@ -11,16 +13,20 @@ env:
 before_install:
   - brew install ccache
   - which clang
+  - [ -d /usr/local/opt/ccache/libexec ]
   - export PATH=/usr/local/opt/ccache/libexec:$PATH
   - which clang
+  - export CC=`which clang`
+  - echo $CC
   # Show ccache stats:
   - ccache -s
   - brew install gflags
   # Pod install does this too, but we don't want the output.
   - pod repo update --silent
+install:
+  - [ -d $HOME/.ccache ]
   - make grpc_objective_c_plugin
   - make interop_server
-install:
   - pushd src/objective-c/tests
   # Needs to be verbose, or otherwise OpenSSL's prepare_command makes Travis
   # time out:
