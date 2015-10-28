@@ -10,7 +10,6 @@ env:
     - JOBS=1
 before_install:
   # - brew update
-  - pod --version
   # Show ccache stats:
   - ccache -s
   - brew install gflags
