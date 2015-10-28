@@ -23,6 +23,7 @@ before_install:
   # Pod install does this too, but we don't want the output.
   - pod repo update --silent
 install:
+  - ccache -p | grep "cache_dir\s\=\s.*$" -o | cut -c 13-
   - [ -d $HOME/.ccache ]
   - make grpc_objective_c_plugin
   - make interop_server
