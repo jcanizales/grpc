@@ -11,6 +11,8 @@ env:
 before_install:
   # - brew update
   - pod --version
+  # Show ccache stats:
+  - ccache -s
   - brew install gflags
   - make grpc_objective_c_plugin
   - make interop_server
