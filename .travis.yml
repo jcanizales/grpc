@@ -1,12 +1,6 @@
 language: objective-c
 before_install:
-  - curl -O https://distfiles.macports.org/MacPorts/MacPorts-2.3.3.tar.bz2
-  - tar xf MacPorts-2.3.3.tar.bz2
-  - cd MacPorts-2.3.3/
-  - ./configure
-  - make
-  - sudo make install
-  - sudo /opt/local/bin/port install gflags
+  - brew install gflags
 env:
   global:
     - CONFIG=opt
