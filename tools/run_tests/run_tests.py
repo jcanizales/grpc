@@ -633,7 +633,8 @@ if platform.system() == 'Windows':
                       'vsprojects\\%s.sln' % target,
                       '/p:Configuration=%s' % _WINDOWS_CONFIG[cfg]] +
                       extra_args,
-                      shell=True, timeout_seconds=90*60)
+                      shell=True, timeout_seconds=90*60,
+                      suppress_success_stdout=True)
       for target in targets]
 else:
   def make_jobspec(cfg, targets, makefile='Makefile'):
@@ -644,7 +645,8 @@ else:
                               'EXTRA_DEFINES=GRPC_TEST_SLOWDOWN_MACHINE_FACTOR=%f' %
                               args.slowdown,
                               'CONFIG=%s' % cfg] + targets,
-                             timeout_seconds=30*60)]
+                             timeout_seconds=30*60,
+                             suppress_success_stdout=True)]
     else:
       return []
 make_targets = {}

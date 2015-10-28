@@ -143,7 +143,7 @@ class JobSpec(object):
 
   def __init__(self, cmdline, shortname=None, environ=None, hash_targets=None,
                cwd=None, shell=False, timeout_seconds=5*60, flake_retries=0,
-               timeout_retries=0, kill_handler=None):
+               timeout_retries=0, kill_handler=None, suppress_success_stdout=False):
     """
     Arguments:
       cmdline: a list of arguments to pass as the command line
@@ -166,6 +166,7 @@ class JobSpec(object):
     self.flake_retries = flake_retries
     self.timeout_retries = timeout_retries
     self.kill_handler = kill_handler
+    self.suppress_success_stdout = suppress_success_stdout
 
   def identity(self):
     return '%r %r %r' % (self.cmdline, self.environ, self.hash_targets)
@@ -197,7 +198,7 @@ class Job(object):
     self._add_env = add_env.copy()
     self._xml_test = ET.SubElement(xml_report, 'testcase',
                                    name=self._spec.shortname) if xml_report is not None else None
-    self._use_stdout = running_alone and travis and xml_report is None
+    self._use_stdout = running_alone and travis and xml_report is None and not spec.suppress_success_stdout
     self._retries = 0
     self._timeout_retries = 0
     self._suppress_failure_message = False
