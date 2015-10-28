@@ -387,7 +387,7 @@ class ObjCLanguage(object):
                             environ=_FORCE_ENVIRON_FOR_WRAPPERS)]
 
   def pre_build_steps(self):
-    return []
+    return [['src/objective-c/tests/pre_build_tests.sh']]
 
   def make_targets(self):
     return ['grpc_objective_c_plugin', 'interop_server']
