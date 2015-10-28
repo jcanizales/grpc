@@ -189,7 +189,7 @@ class JobResult(object):
 class Job(object):
   """Manages one job."""
 
-  def __init__(self, spec, bin_hash, newline_on_success, travis, add_env, xml_report):
+  def __init__(self, spec, bin_hash, newline_on_success, travis, add_env, xml_report, running_alone):
     self._spec = spec
     self._bin_hash = bin_hash
     self._newline_on_success = newline_on_success
@@ -197,6 +197,7 @@ class Job(object):
     self._add_env = add_env.copy()
     self._xml_test = ET.SubElement(xml_report, 'testcase',
                                    name=self._spec.shortname) if xml_report is not None else None
+    self._use_stdout = running_alone and travis and xml_report is None
     self._retries = 0
     self._timeout_retries = 0
     self._suppress_failure_message = False
@@ -208,25 +209,35 @@ class Job(object):
     return self._spec
 
   def start(self):
-    self._tempfile = tempfile.TemporaryFile()
     env = dict(os.environ)
     env.update(self._spec.environ)
     env.update(self._add_env)
     self._start = time.time()
-    self._process = subprocess.Popen(args=self._spec.cmdline,
-                                     stderr=subprocess.STDOUT,
-                                     stdout=self._tempfile,
-                                     cwd=self._spec.cwd,
-                                     shell=self._spec.shell,
-                                     env=env)
+    if not self._use_stdout:
+      self._tempfile = tempfile.TemporaryFile()
+      self._process = subprocess.Popen(args=self._spec.cmdline,
+                                       stderr=subprocess.STDOUT,
+                                       stdout=self._tempfile,
+                                       cwd=self._spec.cwd,
+                                       shell=self._spec.shell,
+                                       env=env)
+    else:
+      self._process = subprocess.Popen(args=self._spec.cmdline,
+                                       stderr=subprocess.STDOUT,
+                                       cwd=self._spec.cwd,
+                                       shell=self._spec.shell,
+                                       env=env)
     self._state = _RUNNING
 
   def state(self, update_cache):
     """Poll current state of the job. Prints messages at completion."""
     if self._state == _RUNNING and self._process.poll() is not None:
       elapsed = time.time() - self._start
-      self._tempfile.seek(0)
-      stdout = self._tempfile.read()
+      if not self._use_stdout:
+        self._tempfile.seek(0)
+        stdout = self._tempfile.read()
+      else:
+        stdout = ""
       filtered_stdout = _filter_stdout(stdout)
       # TODO: looks like jenkins master is slow because parsing the junit results XMLs is not
       # implemented efficiently. This is an experiment to workaround the issue by making sure
@@ -264,8 +275,11 @@ class Job(object):
         if self._bin_hash:
           update_cache.finished(self._spec.identity(), self._bin_hash)
     elif self._state == _RUNNING and time.time() - self._start > self._spec.timeout_seconds:
-      self._tempfile.seek(0)
-      stdout = self._tempfile.read()
+      if not self._use_stdout:
+        self._tempfile.seek(0)
+        stdout = self._tempfile.read()
+      else:
+        stdout = ""
       filtered_stdout = _filter_stdout(stdout)
       self.result.message = filtered_stdout
       if self._timeout_retries < self._spec.timeout_retries:
@@ -345,7 +359,8 @@ class Jobset(object):
                 self._newline_on_success,
                 self._travis,
                 self._add_env,
-                self._xml_report)
+                self._xml_report,
+                self._maxjobs == 1)
       self._running.add(job)
       self.resultset[job.GetSpec().shortname] = None
     return True
