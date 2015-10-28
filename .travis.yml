@@ -9,8 +9,8 @@ env:
     - TEST=objc
     - JOBS=1
 before_install:
-  # - gem update cocoapods
   # - brew update
+  - pod --version
   - brew install gflags
   - make grpc_objective_c_plugin
   - make interop_server
