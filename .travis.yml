@@ -4,7 +4,7 @@ cache:
   cocoapods: true
   # For some reason listing ccache doesn't validate
   directories:
-    - $HOME/.ccache
+    - /Users/travis/.ccache
 env:
   global:
     - CONFIG=opt
@@ -24,7 +24,8 @@ before_install:
   - pod repo update --silent
 install:
   - ccache -p | grep "cache_dir\s\=\s.*$" -o | cut -c 13-
-  - [ -d $HOME/.ccache ]
+  - echo $HOME
+  - [ -d /Users/travis/.ccache ]
   - make grpc_objective_c_plugin
   - make interop_server
   - pushd src/objective-c/tests
