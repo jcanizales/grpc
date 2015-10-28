@@ -1,4 +1,7 @@
 language: objective-c
+cache:
+  - cocoapods
+  - ccache
 env:
   global:
     - CONFIG=opt
