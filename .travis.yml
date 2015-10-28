@@ -9,7 +9,6 @@ env:
     - TEST=objc
     - JOBS=1
 before_install:
-  # - brew update
   - brew install ccache
   - which clang
   - export PATH=/usr/local/opt/ccache/libexec:$PATH
