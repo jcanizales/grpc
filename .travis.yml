@@ -4,7 +4,7 @@ cache:
   cocoapods: true
   # For some reason listing ccache doesn't validate
   directories:
-    - /Users/travis/.ccache
+    - $HOME/.ccache
 env:
   global:
     - CONFIG=opt
@@ -24,15 +24,19 @@ before_install:
   - pod repo update --silent
 install:
   - ccache -p | grep "cache_dir\s\=\s.*$" -o | cut -c 13-
-  - echo $HOME
-  - [ -d /Users/travis/.ccache ]
+  - echo $HOME/.ccache
+  - mkdir -p $HOME/.ccache
   - make grpc_objective_c_plugin
   - make interop_server
+  - ccache -s
+  - ls $HOME/.ccache
   - pushd src/objective-c/tests
   # Needs to be verbose, or otherwise OpenSSL's prepare_command makes Travis
   # time out:
   - pod install --verbose
   - popd
+  - ccache -s
+  - ls $HOME/.ccache
 before_script:
   - bins/$CONFIG/interop_server --port=5050 &
   - bins/$CONFIG/interop_server --port=5051 --use_tls &
