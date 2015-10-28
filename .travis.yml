@@ -10,8 +10,10 @@ env:
     - JOBS=1
 before_install:
   # - brew update
+  - brew install ccache
   # Show ccache stats:
   - ccache -s
+  - which clang
   - brew install gflags
   - make grpc_objective_c_plugin
   - make interop_server
