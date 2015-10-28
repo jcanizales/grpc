@@ -41,6 +41,9 @@ hash xcodebuild 2>/dev/null || {
     exit 1
 }
 
-# Make Cocoapods install OpenSSL somewhere, so it stays in its cache
-cd CocoapodsCacheFilling
-pod install
+# # Make Cocoapods install OpenSSL somewhere, so it stays in its cache.
+# # Verbosity is necessary because the prepare_command of OpenSSL otherwise spends
+# # more than 10min without emitting output the first time it's run, and Travis
+# # interprets that as a hang and kills the run.
+# cd CocoapodsCacheFilling
+# pod install --verbose
