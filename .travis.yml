@@ -14,7 +14,6 @@ before_install:
   - brew install ccache
   - which clang
   - export PATH=/usr/local/opt/ccache/libexec:$PATH
-  - which clang
   - export CC=`which clang`
   - echo $CC
   # Show ccache stats:
@@ -23,13 +22,10 @@ before_install:
   # Pod install does this too, but we don't want the output.
   - pod repo update --silent
 install:
-  # - ccache -p | grep "cache_dir\s\=\s.*$" -o | cut -c 13-
-  # - echo $HOME/.ccache
   - mkdir -p $HOME/.ccache
   - make grpc_objective_c_plugin
   #
   - ccache -s
-  - ls $HOME/.ccache
   #
   - pushd src/objective-c/tests
   # Needs to be verbose, or otherwise OpenSSL's prepare_command makes Travis
@@ -38,12 +34,10 @@ install:
   - popd
   #
   - ccache -s
-  - ls $HOME/.ccache
 before_script:
   - make interop_server
   #
   - ccache -s
-  - ls $HOME/.ccache
   #
   - bins/$CONFIG/interop_server --port=5050 &
   - bins/$CONFIG/interop_server --port=5051 --use_tls &
