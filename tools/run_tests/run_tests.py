@@ -654,7 +654,7 @@ for l in languages:
       set(l.make_targets()))
 
 build_steps = list(set(
-                   jobset.JobSpec(cmdline, environ={'CONFIG': cfg}, flake_retries=5)
+                   jobset.JobSpec(cmdline, environ={'CONFIG': cfg}, flake_retries=5, timeout_seconds=15*60)
                    for cfg in build_configs
                    for l in languages
                    for cmdline in l.pre_build_steps()))
