@@ -13,7 +13,6 @@ env:
 before_install:
   - brew install ccache
   - which clang
-  - [ -d /usr/local/opt/ccache/libexec ]
   - export PATH=/usr/local/opt/ccache/libexec:$PATH
   - which clang
   - export CC=`which clang`
