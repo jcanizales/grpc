@@ -39,7 +39,11 @@
 
 #include <grpc/support/port_platform.h>
 #include <stddef.h>
+#ifndef __APPLE__
 #include <time.h>
+#else
+#include <sys/time.h>
+#endif
 
 #ifdef __cplusplus
 extern "C" {
