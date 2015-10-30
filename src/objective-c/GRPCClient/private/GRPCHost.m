@@ -51,6 +51,10 @@
 
 @implementation GRPCHost
 
+- (grpc_channel *)grpc_channel {
+  return _channel.unmanagedChannel;
+}
+
 + (instancetype)hostWithAddress:(NSString *)address {
   return [[self alloc] initWithAddress:address];
 }

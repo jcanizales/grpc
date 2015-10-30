@@ -227,6 +227,7 @@
 @implementation GRPCWrappedCall {
   GRPCCompletionQueue *_queue;
   grpc_call *_call;
+  grpc_channel *_channel;
 }
 
 - (instancetype)init {
@@ -255,8 +256,13 @@
     if (_call == NULL) {
       return nil;
     }
+    _channel = [GRPCHost hostWithAddress:host].grpc_channel;
   }
   return self;
+}
+
+- (grpc_channel *)grpc_channel {
+  return _channel;
 }
 
 - (void)startBatchWithOperations:(NSArray *)operations {

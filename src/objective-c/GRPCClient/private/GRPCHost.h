@@ -33,6 +33,8 @@
 
 #import <Foundation/Foundation.h>
 
+#include <grpc/grpc.h>
+
 @class GRPCCompletionQueue;
 struct grpc_call;
 
@@ -47,6 +49,8 @@ struct grpc_call;
 
 @property(nonatomic, copy) NSString *pathToCertificates;
 @property(nonatomic, copy) NSString *hostNameOverride;
+
+@property(nonatomic, readonly) grpc_channel *grpc_channel;
 
 /** Host objects initialized with the same address are the same. */
 + (instancetype)hostWithAddress:(NSString *)address;

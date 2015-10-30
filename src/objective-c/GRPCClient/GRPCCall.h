@@ -49,6 +49,7 @@
 
 #import <Foundation/Foundation.h>
 #import <RxLibrary/GRXWriter.h>
+#include <grpc/grpc.h>
 
 #include <AvailabilityMacros.h>
 
@@ -231,7 +232,7 @@ extern id const kGRPCTrailersKey;
  */
 - (void)cancel;
 
-// TODO(jcanizales): Let specify a deadline. As a category of GRXWriter?
+@property(nonatomic, readonly) grpc_channel *grpc_channel;
 @end
 
 #pragma mark Backwards compatibiity

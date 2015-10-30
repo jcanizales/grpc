@@ -99,6 +99,10 @@ NSString * const kGRPCTrailersKey = @"io.grpc.TrailersKey";
 
 @synthesize state = _state;
 
+- (grpc_channel *)grpc_channel {
+  return _wrappedCall.grpc_channel;
+}
+
 - (instancetype)init {
   return [self initWithHost:nil path:nil requestsWriter:nil];
 }
