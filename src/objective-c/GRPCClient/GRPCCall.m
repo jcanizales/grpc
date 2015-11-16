@@ -97,8 +97,9 @@ NSString * const kGRPCTrailersKey = @"io.grpc.TrailersKey";
   GRPCRequestHeaders *_requestHeaders;
 }
 
-@synthesize state = _state;
+@synthesize state = _state, channelState = _channelState;
 
+// TODO(jcanizales): Remove.
 - (grpc_channel *)grpc_channel {
   return _wrappedCall.grpc_channel;
 }
@@ -389,4 +390,15 @@ NSString * const kGRPCTrailersKey = @"io.grpc.TrailersKey";
       return;
   }
 }
+
+#pragma mark Channel state
+
+- (GRPCChannelState *)channelState {
+  if (!_channelState) {
+    // TODO(jcanizales): Just return the state from the GRPCHost!
+    _channelState = [[GRPCChannelState alloc] initWithUnmanagedChannel:_wrappedCall.grpc_channel];
+  }
+  return _channelState;
+}
+
 @end

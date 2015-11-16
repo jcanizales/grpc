@@ -53,6 +53,9 @@
 
 #include <AvailabilityMacros.h>
 
+// TODO(jcanizales): Make public.
+#import "private/GRPCChannelState.h"
+
 #pragma mark gRPC errors
 
 /** Domain of NSError objects produced by gRPC. */
@@ -232,6 +235,10 @@ extern id const kGRPCTrailersKey;
  */
 - (void)cancel;
 
+// TODO(jcanizales): Move to public.
+@property(nonatomic, readonly) GRPCChannelState *channelState;
+
+// TODO(jcanizales): Remove.
 @property(nonatomic, readonly) grpc_channel *grpc_channel;
 @end
 
