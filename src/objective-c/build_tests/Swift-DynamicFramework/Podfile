@@ -1,0 +1,8 @@
+source 'https://github.com/CocoaPods/Specs.git'
+platform :ios, '8.0'
+
+use_frameworks!
+
+pod 'Protobuf', :path => "../../../../third_party/protobuf"
+pod 'gRPC', :path => "../../../.."
+pod 'RemoteTest', :path => "../../examples/RemoteTestClient"
