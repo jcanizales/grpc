@@ -33,7 +33,10 @@
 
 #import "AppDelegate.h"
 
-#import <RemoteTest/Test.pbrpc.h>
+#import <GPBProtocolBuffers.h>
+#import <ProtoRPC/ProtoService.h>
+
+#include <openssl/ssl.h>
 
 @implementation AppDelegate
 @end
@@ -42,12 +45,19 @@
 @end
 
 @implementation ViewController {
-  RMTTestService *_client;
+  ProtoService *_client;
+  GPBMessage *_message;
+  SSL_CTX *_SSLContext;
 }
 
 - (void)viewDidLoad {
   [super viewDidLoad];
 
-  _client = [[RMTTestService alloc] initWithHost:@"grpc-test.sandbox.google.com"];
+  _client = [[ProtoService alloc] initWithHost:@"grpc-test.sandbox.google.com"
+  	                               packageName:@"test"
+  	                               serviceName:@"TestService"];
+  _message = [GPBMessage message];
+  _SSLContext = SSL_CTX_new(TLS_method());
+  SSL_CTX_free(_SSLContext);
 }
 @end

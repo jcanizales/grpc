@@ -4,4 +4,3 @@ platform :ios, '8.0'
 pod 'Protobuf', :path => "../../../../third_party/protobuf"
 pod 'BoringSSL', :podspec => "../../../.."
 pod 'gRPC', :path => "../../../.."
-pod 'RemoteTest', :path => "../../examples/RemoteTestClient"

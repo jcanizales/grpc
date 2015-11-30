@@ -34,12 +34,16 @@
 #ifndef BridgingHeader_h
 #define BridgingHeader_h
 
+#include <openssl/ssl.h>
+
+#import <GPBProtocolBuffers.h>
+#import <ProtoRPC/ProtoService.h>
+
 #import <RxLibrary/GRXWriteable.h>
 #import <RxLibrary/GRXWriter.h>
 #import <RxLibrary/GRXWriter+Immediate.h>
 #import <GRPCClient/GRPCCall.h>
 #import <ProtoRPC/ProtoMethod.h>
 #import <ProtoRPC/ProtoRPC.h>
-#import <RemoteTest/Test.pbrpc.h>
 
 #endif /* BridgingHeader_h */
