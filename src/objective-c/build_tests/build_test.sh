@@ -38,20 +38,6 @@ hash xcodebuild 2>/dev/null || {
     exit 1
 }
 
-BINDIR=../../../bins/$CONFIG
-
-if [ ! -f $BINDIR/protobuf/protoc ]; then
-    # Add the protoc in $BINDIR/protobuf to the path so that it's preferred over
-    # an installed one.
-    export PATH=$BINDIR/protobuf:$PATH
-else
-    hash protoc 2>/dev/null || {
-        echo >&2 "Can't find protoc. Make sure run_tests.py is making" \
-                 "grpc_objective_c_plugin before calling this script."
-        exit 1
-    }
-fi
-
 function test_build() {
     cd $1
 
