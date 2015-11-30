@@ -4,5 +4,6 @@ platform :ios, '8.0'
 use_frameworks!
 
 pod 'Protobuf', :path => "../../../../third_party/protobuf"
+pod 'BoringSSL', :podspec => "../../../.."
 pod 'gRPC', :path => "../../../.."
 pod 'RemoteTest', :path => "../../examples/RemoteTestClient"
