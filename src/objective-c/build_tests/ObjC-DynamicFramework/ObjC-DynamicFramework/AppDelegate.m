@@ -33,8 +33,7 @@
 
 #import "AppDelegate.h"
 
-#import <GPBProtocolBuffers.h>
-#import <ProtoRPC/ProtoService.h>
+#import <Protobuf/GPBProtocolBuffers.h>
 
 #include <openssl/ssl.h>
 
@@ -45,7 +44,6 @@
 @end
 
 @implementation ViewController {
-  ProtoService *_client;
   GPBMessage *_message;
   SSL_CTX *_SSLContext;
 }
@@ -53,10 +51,8 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
 
-  _client = [[ProtoService alloc] initWithHost:@"grpc-test.sandbox.google.com"
-  	                               packageName:@"test"
-  	                               serviceName:@"TestService"];
   _message = [GPBMessage message];
+
   _SSLContext = SSL_CTX_new(TLS_method());
   SSL_CTX_free(_SSLContext);
 }

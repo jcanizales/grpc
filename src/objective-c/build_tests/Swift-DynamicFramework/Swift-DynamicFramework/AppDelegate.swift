@@ -39,18 +39,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 
 class ViewController: UIViewController {
-  var client: ProtoService?
   var message: GPBMessage?
   var SSLContext: UnsafeMutablePointer<SSL_CTX>?
 
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    client = ProtoService(host: "grpc-test.sandbox.google.com",
-      packageName:"test",
-      serviceName:"TestService")
     message = GPBMessage()
-  	SSLContext = SSL_CTX_new(TLS_method());
-  	SSL_CTX_free(SSLContext!);
+
+    SSLContext = SSL_CTX_new(TLS_method());
+    SSL_CTX_free(SSLContext!);
   }
 }
