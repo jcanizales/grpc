@@ -614,7 +614,7 @@ Pod::Spec.new do |s|
   s.subspec 'GRPCClient' do |ss|
     src_dir = "#{objc_dir}/GRPCClient"
     ss.source_files = "#{src_dir}/*.{h,m}", "#{src_dir}/**/*.{h,m}"
-    ss.public_header_files = "#{src_dir}/*.h", "#{src_dir}/private/GRPCCompletionQueue.h"
+    ss.public_header_files = "#{src_dir}/*.h", "#{src_dir}/private/GRPCCompletionQueue.h", "#{src_dir}/private/GRPCChannelState.h"
     ss.header_mappings_dir = "#{objc_dir}"
 
     ss.dependency 'gRPC/C-Core'
