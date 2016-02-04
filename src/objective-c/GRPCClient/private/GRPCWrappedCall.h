@@ -94,5 +94,7 @@
 
 - (void)cancel;
 
+@property(nonatomic, readonly) GRPCChannelState *channelState;
+
 @property(nonatomic, readonly) grpc_channel *grpc_channel;
 @end
