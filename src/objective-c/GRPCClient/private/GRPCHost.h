@@ -35,29 +35,34 @@
 
 #include <grpc/grpc.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class GRPCCompletionQueue;
 struct grpc_call;
 
 @interface GRPCHost : NSObject
 
 @property(nonatomic, readonly) NSString *address;
-@property(nonatomic, copy) NSString *userAgentPrefix;
+@property(nonatomic, copy, nullable) NSString *userAgentPrefix;
 
 /** The following properties should only be modified for testing: */
 
 @property(nonatomic, getter=isSecure) BOOL secure;
 
-@property(nonatomic, copy) NSString *pathToCertificates;
-@property(nonatomic, copy) NSString *hostNameOverride;
+@property(nonatomic, copy, nullable) NSString *pathToCertificates;
+@property(nonatomic, copy, nullable) NSString *hostNameOverride;
 
 @property(nonatomic, readonly) grpc_channel *grpc_channel;
 
+- (nullable instancetype)init NS_UNAVAILABLE;
 /** Host objects initialized with the same address are the same. */
-+ (instancetype)hostWithAddress:(NSString *)address;
-- (instancetype)initWithAddress:(NSString *)address NS_DESIGNATED_INITIALIZER;
++ (nullable instancetype)hostWithAddress:(NSString *)address;
+- (nullable instancetype)initWithAddress:(NSString *)address NS_DESIGNATED_INITIALIZER;
 
 /** Create a grpc_call object to the provided path on this host. */
-- (struct grpc_call *)unmanagedCallWithPath:(NSString *)path
-                            completionQueue:(GRPCCompletionQueue *)queue;
+- (nullable struct grpc_call *)unmanagedCallWithPath:(NSString *)path
+                                     completionQueue:(GRPCCompletionQueue *)queue;
 
 @end
+
+NS_ASSUME_NONNULL_END

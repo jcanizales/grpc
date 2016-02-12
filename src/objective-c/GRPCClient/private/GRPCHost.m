@@ -59,10 +59,6 @@
   return [[self alloc] initWithAddress:address];
 }
 
-- (instancetype)init {
-  return [self initWithAddress:nil];
-}
-
 // Default initializer.
 - (instancetype)initWithAddress:(NSString *)address {
   if (!address) {
@@ -111,34 +107,42 @@
                                   gpr_inf_future(GPR_CLOCK_REALTIME), NULL);
 }
 
-- (GRPCChannel *)channel {
-  // Create it lazily, because we don't want to open a connection just because someone is
-  // configuring a host.
+- (nonnull NSDictionary *)channelArgs {
+  NSMutableDictionary *args = [NSMutableDictionary dictionary];
 
-  if (!_channel) {
-    NSMutableDictionary *args = [NSMutableDictionary dictionary];
+  // TODO(jcanizales): Add OS and device information (see
+  // https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-HTTP2.md#user-agents ).
+  NSString *userAgent = @"grpc-objc/" GRPC_OBJC_VERSION_STRING;
+  if (_userAgentPrefix) {
+    userAgent = [@[_userAgentPrefix, userAgent] componentsJoinedByString:@" "];
+  }
+  args[@GRPC_ARG_PRIMARY_USER_AGENT_STRING] = userAgent;
 
-    // TODO(jcanizales): Add OS and device information (see
-    // https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-HTTP2.md#user-agents ).
-    NSString *userAgent = @"grpc-objc/" GRPC_OBJC_VERSION_STRING;
-    if (_userAgentPrefix) {
-      userAgent = [@[_userAgentPrefix, userAgent] componentsJoinedByString:@" "];
-    }
-    args[@GRPC_ARG_PRIMARY_USER_AGENT_STRING] = userAgent;
+  if (_secure && _hostNameOverride) {
+    args[@GRPC_SSL_TARGET_NAME_OVERRIDE_ARG] = _hostNameOverride;
+  }
+  return args;
+}
 
-    if (_secure) {
-      if (_hostNameOverride) {
-        args[@GRPC_SSL_TARGET_NAME_OVERRIDE_ARG] = _hostNameOverride;
+- (nonnull GRPCChannel *)channel {
+  @synchronized(self) {
+    // Create it lazily, because we don't want to open a connection just because someone is
+    // configuring a host.
+    if (!_channel) {
+      NSDictionary *args = [self channelArgs];
+      if (_secure) {
+        _channel = [GRPCChannel secureChannelWithHost:_address
+                                   pathToCertificates:_pathToCertificates
+                                          channelArgs:args];
+      } else {
+        _channel = [GRPCChannel insecureChannelWithHost:_address channelArgs:args];
       }
 
-      _channel = [GRPCChannel secureChannelWithHost:_address
-                                 pathToCertificates:_pathToCertificates
-                                        channelArgs:args];
-    } else {
-      _channel = [GRPCChannel insecureChannelWithHost:_address channelArgs:args];
     }
+    return _channel;
   }
-  return _channel;
+}
+  }
 }
 
 - (NSString *)hostName {

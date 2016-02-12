@@ -99,11 +99,6 @@ NSString * const kGRPCTrailersKey = @"io.grpc.TrailersKey";
 
 @synthesize state = _state;
 
-// TODO(jcanizales): Remove.
-- (grpc_channel *)grpc_channel {
-  return _wrappedCall.grpc_channel;
-}
-
 - (instancetype)init {
   return [self initWithHost:nil path:nil requestsWriter:nil];
 }
@@ -126,7 +121,7 @@ NSString * const kGRPCTrailersKey = @"io.grpc.TrailersKey";
     }
 
     // Serial queue to invoke the non-reentrant methods of the grpc_call object.
-    _callQueue = dispatch_queue_create("org.grpc.call", NULL);
+    _callQueue = dispatch_queue_create("io.grpc.call", NULL);
 
     _requestWriter = requestWriter;
 
