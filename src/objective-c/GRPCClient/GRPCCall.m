@@ -37,6 +37,7 @@
 #include <grpc/support/time.h>
 #import <RxLibrary/GRXConcurrentWriteable.h>
 
+#import "private/GRPCHost.h"
 #import "private/GRPCRequestHeaders.h"
 #import "private/GRPCWrappedCall.h"
 #import "private/NSData+GRPC.h"
@@ -71,6 +72,8 @@ NSString * const kGRPCTrailersKey = @"io.grpc.TrailersKey";
 @implementation GRPCCall {
   dispatch_queue_t _callQueue;
 
+  NSString *_host;
+  NSString *_path;
   GRPCWrappedCall *_wrappedCall;
   dispatch_once_t _callAlreadyInvoked;
 
@@ -115,10 +118,8 @@ NSString * const kGRPCTrailersKey = @"io.grpc.TrailersKey";
                 format:@"The requests writer can't be already started."];
   }
   if ((self = [super init])) {
-    _wrappedCall = [[GRPCWrappedCall alloc] initWithHost:host path:path];
-    if (!_wrappedCall) {
-      return nil;
-    }
+    _host = [host copy];
+    _path = [path copy];
 
     // Serial queue to invoke the non-reentrant methods of the grpc_call object.
     _callQueue = dispatch_queue_create("io.grpc.call", NULL);
@@ -135,6 +136,7 @@ NSString * const kGRPCTrailersKey = @"io.grpc.TrailersKey";
 - (void)finishWithError:(NSError *)errorOrNil {
   // If the call isn't retained anywhere else, it can be deallocated now.
   _retainSelf = nil;
+  [[GRPCHost hostWithAddress:_host] unregisterCall:self];
 
   // If there were still request messages coming, stop them.
   @synchronized(_requestWriter) {
@@ -352,8 +354,16 @@ NSString * const kGRPCTrailersKey = @"io.grpc.TrailersKey";
   // Care is taken not to retain self strongly in any of the blocks used in this implementation, so
   // that the life of the instance is determined by this retain cycle.
   _retainSelf = self;
+  [[GRPCHost hostWithAddress:_host] registerCall:self];
 
   _responseWriteable = [[GRXConcurrentWriteable alloc] initWithWriteable:writeable];
+
+  _wrappedCall = [[GRPCWrappedCall alloc] initWithHost:_host path:_path];
+  if (!_wrappedCall) {
+    // FINISH WITH ERROR
+    return;
+  }
+  // REGISTER ON THE HOST
   [self sendHeaders:_requestHeaders];
   [self invokeCall];
 }

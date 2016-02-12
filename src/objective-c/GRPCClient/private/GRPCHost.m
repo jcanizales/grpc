@@ -34,6 +34,7 @@
 #import "GRPCHost.h"
 
 #include <grpc/grpc.h>
+#import <GRPCClient/GRPCCall.h>
 #import <GRPCClient/GRPCCall+ChannelArg.h>
 
 #import "GRPCChannel.h"
@@ -49,7 +50,9 @@
 @property(nonatomic, strong) GRPCChannel *channel;
 @end
 
-@implementation GRPCHost
+@implementation GRPCHost {
+  NSMutableArray *_pendingCalls;
+}
 
 - (grpc_channel *)grpc_channel {
   return _channel.unmanagedChannel;
@@ -89,6 +92,7 @@
     if ((self = [super init])) {
       _address = address;
       _secure = YES;
+      _pendingCalls = [NSMutableArray array];
       hostCache[address] = self;
     }
   }
@@ -138,10 +142,28 @@
         _channel = [GRPCChannel insecureChannelWithHost:_address channelArgs:args];
       }
 
+      // START LISTENING FOR REACHABILITY
+      // WHEN REACHABILITY GOES AWAY:
+      // - STOP LISTENING
+      // SYNCHRONIZE ON SELF
+      // - CHANNEL = NIL
+      // - CANCEL PENDING RPCS(*)
+
+      // (*) WE NEED A REGISTER OF PENDING GRPCCall's. WITH WEAK REFERENCES.
     }
     return _channel;
   }
 }
+
+- (void)registerCall:(nonnull GRPCCall *)call {
+  @synchronized(self) {
+    [_pendingCalls addObject:call];
+  }
+}
+
+- (void)unregisterCall:(nonnull GRPCCall *)call {
+  @synchronized(self) {
+    [_pendingCalls removeObject:call];
   }
 }
 
