@@ -2,6 +2,10 @@ Pod::Spec.new do |s|
   s.name     = "RemoteTest"
   s.version  = "0.0.1"
   s.license  = "New BSD"
+  s.authors  = "local"
+  s.homepage = "local"
+  s.summary = "local"
+  s.source = { :git => 'https://doesnt/exist.git' }
 
   s.ios.deployment_target = '7.1'
   s.osx.deployment_target = '10.9'
