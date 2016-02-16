@@ -37,7 +37,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class GRPCCall;
 @class GRPCCompletionQueue;
 struct grpc_call;
 
@@ -63,16 +62,6 @@ struct grpc_call;
 /** Create a grpc_call object to the provided path on this host. */
 - (nullable struct grpc_call *)unmanagedCallWithPath:(NSString *)path
                                      completionQueue:(GRPCCompletionQueue *)queue;
-
-/**
- * Registers a GRPCCall to be finished if the network connection to the host drops. It is retained
- * strongly.
- 
- WHAT IF THE CONNECTION DROPS BETWEEN unmanagedCall... AND THIS?
-
- */
-- (void)registerCall:(GRPCCall *)call;
-- (void)unregisterCall:(GRPCCall *)call;
 @end
 
 NS_ASSUME_NONNULL_END

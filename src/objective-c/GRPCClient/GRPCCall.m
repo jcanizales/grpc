@@ -136,7 +136,6 @@ NSString * const kGRPCTrailersKey = @"io.grpc.TrailersKey";
 - (void)finishWithError:(NSError *)errorOrNil {
   // If the call isn't retained anywhere else, it can be deallocated now.
   _retainSelf = nil;
-  [[GRPCHost hostWithAddress:_host] unregisterCall:self];
 
   // If there were still request messages coming, stop them.
   @synchronized(_requestWriter) {
@@ -354,7 +353,6 @@ NSString * const kGRPCTrailersKey = @"io.grpc.TrailersKey";
   // Care is taken not to retain self strongly in any of the blocks used in this implementation, so
   // that the life of the instance is determined by this retain cycle.
   _retainSelf = self;
-  [[GRPCHost hostWithAddress:_host] registerCall:self];
 
   _responseWriteable = [[GRXConcurrentWriteable alloc] initWithWriteable:writeable];
 

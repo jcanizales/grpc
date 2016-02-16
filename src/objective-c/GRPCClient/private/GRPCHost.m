@@ -51,7 +51,6 @@
 @end
 
 @implementation GRPCHost {
-  NSMutableArray *_pendingCalls;
 }
 
 - (grpc_channel *)grpc_channel {
@@ -92,7 +91,6 @@
     if ((self = [super init])) {
       _address = address;
       _secure = YES;
-      _pendingCalls = [NSMutableArray array];
       hostCache[address] = self;
     }
   }
@@ -149,16 +147,6 @@
     return _channel;
   }
 }
-
-- (void)registerCall:(nonnull GRPCCall *)call {
-  @synchronized(self) {
-    [_pendingCalls addObject:call];
-  }
-}
-
-- (void)unregisterCall:(nonnull GRPCCall *)call {
-  @synchronized(self) {
-    [_pendingCalls removeObject:call];
   }
 }
 
