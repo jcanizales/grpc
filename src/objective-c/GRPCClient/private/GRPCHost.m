@@ -45,12 +45,9 @@
 // templates/src/core/surface/version.c.template .
 #define GRPC_OBJC_VERSION_STRING @"0.13.0"
 
-@interface GRPCHost ()
-// TODO(mlumish): Investigate whether caching channels with strong links is a good idea.
-@property(nonatomic, strong) GRPCChannel *channel;
-@end
-
 @implementation GRPCHost {
+  // TODO(mlumish): Investigate whether caching channels with strong links is a good idea.
+  GRPCChannel *_channel;
 }
 
 - (grpc_channel *)grpc_channel {
@@ -98,10 +95,17 @@
 }
 
 - (grpc_call *)unmanagedCallWithPath:(NSString *)path completionQueue:(GRPCCompletionQueue *)queue {
+  // TODO: just mark as nonnull
   if (!queue || !path) {
     return NULL;
   }
-  return [self.channel unmanagedCallWithPath:path completionQueue:queue];
+  @synchronized(self) {
+    if (!_channel) {
+      _channel = [self newChannel];
+      // Listen for connectivity.
+    }
+    return [_channel unmanagedCallWithPath:path completionQueue:queue];
+  }
 }
 
 - (nonnull NSDictionary *)channelArgs {
@@ -121,32 +125,14 @@
   return args;
 }
 
-- (nonnull GRPCChannel *)channel {
-  @synchronized(self) {
-    // Create it lazily, because we don't want to open a connection just because someone is
-    // configuring a host.
-    if (!_channel) {
-      NSDictionary *args = [self channelArgs];
-      if (_secure) {
-        _channel = [GRPCChannel secureChannelWithHost:_address
-                                   pathToCertificates:_pathToCertificates
-                                          channelArgs:args];
-      } else {
-        _channel = [GRPCChannel insecureChannelWithHost:_address channelArgs:args];
-      }
-
-      // START LISTENING FOR REACHABILITY
-      // WHEN REACHABILITY GOES AWAY:
-      // - STOP LISTENING
-      // SYNCHRONIZE ON SELF
-      // - CHANNEL = NIL
-      // - CANCEL PENDING RPCS(*)
-
-      // (*) WE NEED A REGISTER OF PENDING GRPCCall's. WITH WEAK REFERENCES.
-    }
-    return _channel;
-  }
-}
+- (GRPCChannel *)newChannel {
+  NSDictionary *args = [self channelArgs];
+  if (_secure) {
+    return [GRPCChannel secureChannelWithHost:_address
+                           pathToCertificates:_pathToCertificates
+                                  channelArgs:args];
+  } else {
+    return [GRPCChannel insecureChannelWithHost:_address channelArgs:args];
   }
 }
 
