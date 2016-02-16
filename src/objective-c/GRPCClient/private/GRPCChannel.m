@@ -38,6 +38,8 @@
 #include <grpc/support/log.h>
 #include <grpc/support/string_util.h>
 
+#import "GRPCCompletionQueue.h"
+
 /**
  * Returns @c grpc_channel_credentials from the specified @c path. If the file at the path could not
  * be read then NULL is returned. If NULL is returned, @c errorPtr may not be NULL if there are
@@ -203,6 +205,16 @@ grpc_channel_args * buildChannelArgs(NSDictionary *dictionary) {
                                     secure:NO
                                credentials:NULL
                                channelArgs:channelArgs];
+}
+
+- (grpc_call *)unmanagedCallWithPath:(NSString *)path
+                     completionQueue:(GRPCCompletionQueue *)queue {
+  return grpc_channel_create_call(_unmanagedChannel,
+                                  NULL, GRPC_PROPAGATE_DEFAULTS,
+                                  queue.unmanagedQueue,
+                                  path.UTF8String,
+                                  _host.UTF8String,
+                                  gpr_inf_future(GPR_CLOCK_REALTIME), NULL);
 }
 
 @end
