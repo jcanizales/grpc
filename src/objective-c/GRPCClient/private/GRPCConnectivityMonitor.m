@@ -37,7 +37,7 @@
 #import <sys/socket.h>
 #import <CoreFoundation/CoreFoundation.h>
 
-#import "GRXReachability.h"
+#import "GRPCConnectivityMonitor.h"
 
 #import <RxLibrary/GRXWriteable.h>
 #import <RxLibrary/GRXWriter+Immediate.h>
@@ -115,7 +115,7 @@
 
 #pragma mark Reachability
 
-@interface GRXReachability ()
+@interface GRPCConnectivityMonitor ()
 - (void)notifyNewFlags:(SCNetworkReachabilityFlags)flags;
 @end
 
@@ -123,17 +123,17 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target,
                                  SCNetworkReachabilityFlags flags,
                                  void *info) {
   #pragma unused (target)
-  GRXReachability *reachability = (__bridge GRXReachability *)info;
+  GRPCConnectivityMonitor *reachability = (__bridge GRPCConnectivityMonitor *)info;
   [reachability notifyNewFlags:flags];
 }
 
-@implementation GRXReachability {
+@implementation GRPCConnectivityMonitor {
 	SCNetworkReachabilityRef _reachabilityRef;
   GRXReachabilityFlags *_lastKnownFlags;
 }
 
 + (void)handleLossForHost:(NSString *)host withHandler:(void (^)())handler {
-  __block GRXReachability *reachability = [self reachabilityWithHost:host];
+  __block GRPCConnectivityMonitor *reachability = [self reachabilityWithHost:host];
   reachability.handler = ^(GRXReachabilityFlags *flags) {
     if (!flags.isHostReachable) {
       handler();
@@ -162,7 +162,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target,
 	SCNetworkReachabilityRef reachability =
       SCNetworkReachabilityCreateWithName(NULL, hostName.UTF8String);
 
-  GRXReachability *returnValue = [[self alloc] initWithReachability:reachability];
+  GRPCConnectivityMonitor *returnValue = [[self alloc] initWithReachability:reachability];
   if (reachability) {
     CFRelease(reachability);
   }

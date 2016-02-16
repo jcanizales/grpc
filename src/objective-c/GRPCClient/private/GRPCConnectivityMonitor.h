@@ -54,7 +54,7 @@
 @property(nonatomic, readonly) BOOL isHostReachable;
 @end
 
-@interface GRXReachability : NSObject
+@interface GRPCConnectivityMonitor : NSObject
 
 + (void)handleLossForHost:(NSString *)host withHandler:(void (^)())handler;
 
