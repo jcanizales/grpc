@@ -39,6 +39,7 @@
 
 #import "GRPCChannel.h"
 #import "GRPCCompletionQueue.h"
+#import "GRPCConnectivityMonitor.h"
 #import "NSDictionary+GRPC.h"
 
 // TODO(jcanizales): Generate the version in a standalone header, from templates. Like
@@ -102,7 +103,16 @@
   @synchronized(self) {
     if (!_channel) {
       _channel = [self newChannel];
-      // Listen for connectivity.
+
+      __weak typeof(self) weakSelf = self;
+      [GRPCConnectivityMonitor handleLossForHost:_address withHandler:^{
+        typeof(self) strongSelf = weakSelf;
+        if (strongSelf) {
+          @synchronized(strongSelf) {
+            strongSelf->_channel = nil;
+          }
+        }
+      }];
     }
     return [_channel unmanagedCallWithPath:path completionQueue:queue];
   }
