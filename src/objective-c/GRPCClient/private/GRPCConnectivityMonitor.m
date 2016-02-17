@@ -150,17 +150,18 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target,
   if ((self = [super init])) {
     _reachabilityRef = CFRetain(reachability);
     _queue = dispatch_get_main_queue();
-    SCNetworkReachabilityFlags flags;
-    if (SCNetworkReachabilityGetFlags(_reachabilityRef, &flags)) {
-      _lastKnownFlags = [[GRXReachabilityFlags alloc] initWithFlags:flags];
-    }
   }
   return self;
 }
 
-+ (instancetype)reachabilityWithHost:(NSString *)hostName {
++ (nonnull instancetype)monitorWithHost:(nonnull NSString *)host {
+  const char *hostName = host.UTF8String;
+  if (!hostName) {
+    [NSException raise:NSInvalidArgumentException
+                format:@"host.UTF8String returns NULL for %@", host];
+  }
 	SCNetworkReachabilityRef reachability =
-      SCNetworkReachabilityCreateWithName(NULL, hostName.UTF8String);
+      SCNetworkReachabilityCreateWithName(NULL, hostName);
 
   GRPCConnectivityMonitor *returnValue = [[self alloc] initWithReachability:reachability];
   if (reachability) {
