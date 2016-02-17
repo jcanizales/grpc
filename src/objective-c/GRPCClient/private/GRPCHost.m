@@ -39,7 +39,6 @@
 
 #import "GRPCChannel.h"
 #import "GRPCCompletionQueue.h"
-#import "GRPCConnectivityMonitor.h"
 #import "NSDictionary+GRPC.h"
 
 // TODO(jcanizales): Generate the version in a standalone header, from templates. Like
@@ -103,16 +102,6 @@
   @synchronized(self) {
     if (!_channel) {
       _channel = [self newChannel];
-
-      __weak typeof(self) weakSelf = self;
-      [GRPCConnectivityMonitor handleLossForHost:_address withHandler:^{
-        typeof(self) strongSelf = weakSelf;
-        if (strongSelf) {
-          @synchronized(strongSelf) {
-            strongSelf->_channel = nil;
-          }
-        }
-      }];
     }
     return [_channel unmanagedCallWithPath:path completionQueue:queue];
   }
@@ -149,6 +138,12 @@
 - (NSString *)hostName {
   // TODO(jcanizales): Default to nil instead of _address when Issue #2635 is clarified.
   return _hostNameOverride ?: _address;
+}
+
+- (void)disconnect {
+  @synchronized(self) {
+    _channel = nil;
+  }
 }
 
 // TODO(jcanizales): Don't let set |secure| to |NO| if |pathToCertificates| or |hostNameOverride|
