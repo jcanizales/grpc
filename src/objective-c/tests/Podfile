@@ -6,11 +6,11 @@ pod 'BoringSSL', :podspec => ".."
 pod 'gRPC', :path => "../../.."
 pod 'RemoteTest', :path => "RemoteTestClient"
 
-link_with 'AllTests',
-          'RxLibraryUnitTests',
-          'InteropTests',
-          'InteropTestsLocalSSL',
-          'InteropTestsLocalCleartext'
+# link_with 'AllTests',
+#           'RxLibraryUnitTests',
+#           'InteropTests',
+#           'InteropTestsLocalSSL',
+#           'InteropTestsLocalCleartext'
 
 target 'Tests' do
 end

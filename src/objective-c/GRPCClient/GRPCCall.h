@@ -49,8 +49,12 @@
 
 #import <Foundation/Foundation.h>
 #import <RxLibrary/GRXWriter.h>
+#include <grpc/grpc.h>
 
 #include <AvailabilityMacros.h>
+
+// TODO(jcanizales): Make public.
+#import "private/GRPCChannelState.h"
 
 #pragma mark gRPC errors
 
@@ -231,7 +235,11 @@ extern id const kGRPCTrailersKey;
  */
 - (void)cancel;
 
-// TODO(jcanizales): Let specify a deadline. As a category of GRXWriter?
+// TODO(jcanizales): Move to public.
+@property(nonatomic, readonly) GRPCChannelState *channelState;
+
+// TODO(jcanizales): Remove.
+@property(nonatomic, readonly) grpc_channel *grpc_channel;
 @end
 
 #pragma mark Backwards compatibiity

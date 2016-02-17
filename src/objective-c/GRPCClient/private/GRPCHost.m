@@ -34,25 +34,28 @@
 #import "GRPCHost.h"
 
 #include <grpc/grpc.h>
+#import <GRPCClient/GRPCCall.h>
+#import <GRPCClient/GRPCCall+ChannelArg.h>
 
 #import "GRPCChannel.h"
 #import "GRPCCompletionQueue.h"
-#import "GRPCSecureChannel.h"
-#import "GRPCUnsecuredChannel.h"
+#import "NSDictionary+GRPC.h"
 
-@interface GRPCHost ()
-// TODO(mlumish): Investigate whether caching channels with strong links is a good idea.
-@property(nonatomic, strong) GRPCChannel *channel;
-@end
+// TODO(jcanizales): Generate the version in a standalone header, from templates. Like
+// templates/src/core/surface/version.c.template .
+#define GRPC_OBJC_VERSION_STRING @"0.13.0"
 
-@implementation GRPCHost
+@implementation GRPCHost {
+  // TODO(mlumish): Investigate whether caching channels with strong links is a good idea.
+  GRPCChannel *_channel;
+}
+
+- (grpc_channel *)grpc_channel {
+  return _channel.unmanagedChannel;
+}
 
 + (instancetype)hostWithAddress:(NSString *)address {
   return [[self alloc] initWithAddress:address];
-}
-
-- (instancetype)init {
-  return [self initWithAddress:nil];
 }
 
 // Default initializer.
@@ -92,35 +95,55 @@
 }
 
 - (grpc_call *)unmanagedCallWithPath:(NSString *)path completionQueue:(GRPCCompletionQueue *)queue {
-  if (!queue || !path || !self.channel) {
+  // TODO: just mark as nonnull
+  if (!queue || !path) {
     return NULL;
   }
-  return grpc_channel_create_call(self.channel.unmanagedChannel,
-                                  NULL, GRPC_PROPAGATE_DEFAULTS,
-                                  queue.unmanagedQueue,
-                                  path.UTF8String,
-                                  self.hostName.UTF8String,
-                                  gpr_inf_future(GPR_CLOCK_REALTIME), NULL);
+  @synchronized(self) {
+    if (!_channel) {
+      _channel = [self newChannel];
+    }
+    return [_channel unmanagedCallWithPath:path completionQueue:queue];
+  }
 }
 
-- (GRPCChannel *)channel {
-  // Create it lazily, because we don't want to open a connection just because someone is
-  // configuring a host.
-  if (!_channel) {
-    if (_secure) {
-      _channel = [[GRPCSecureChannel alloc] initWithHost:_address
-                                      pathToCertificates:_pathToCertificates
-                                        hostNameOverride:_hostNameOverride];
-    } else {
-      _channel = [[GRPCUnsecuredChannel alloc] initWithHost:_address];
-    }
+- (nonnull NSDictionary *)channelArgs {
+  NSMutableDictionary *args = [NSMutableDictionary dictionary];
+
+  // TODO(jcanizales): Add OS and device information (see
+  // https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-HTTP2.md#user-agents ).
+  NSString *userAgent = @"grpc-objc/" GRPC_OBJC_VERSION_STRING;
+  if (_userAgentPrefix) {
+    userAgent = [@[_userAgentPrefix, userAgent] componentsJoinedByString:@" "];
   }
-  return _channel;
+  args[@GRPC_ARG_PRIMARY_USER_AGENT_STRING] = userAgent;
+
+  if (_secure && _hostNameOverride) {
+    args[@GRPC_SSL_TARGET_NAME_OVERRIDE_ARG] = _hostNameOverride;
+  }
+  return args;
+}
+
+- (GRPCChannel *)newChannel {
+  NSDictionary *args = [self channelArgs];
+  if (_secure) {
+    return [GRPCChannel secureChannelWithHost:_address
+                           pathToCertificates:_pathToCertificates
+                                  channelArgs:args];
+  } else {
+    return [GRPCChannel insecureChannelWithHost:_address channelArgs:args];
+  }
 }
 
 - (NSString *)hostName {
   // TODO(jcanizales): Default to nil instead of _address when Issue #2635 is clarified.
   return _hostNameOverride ?: _address;
+}
+
+- (void)disconnect {
+  @synchronized(self) {
+    _channel = nil;
+  }
 }
 
 // TODO(jcanizales): Don't let set |secure| to |NO| if |pathToCertificates| or |hostNameOverride|

@@ -1,6 +1,6 @@
 /*
  *
- * Copyright 2015, Google Inc.
+ * Copyright 2016, Google Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -31,29 +31,44 @@
  *
  */
 
-#import <UIKit/UIKit.h>
-#import "AppDelegate.h"
+#import <Foundation/Foundation.h>
+#import <SystemConfiguration/SystemConfiguration.h>
+#import <netinet/in.h>
 
-#import <GRPCClient/GRPCCall+ChannelArg.h>
-#import <GRPCClient/GRPCCall+Tests.h>
-#import <HelloWorld/Helloworld.pbrpc.h>
+@interface GRXReachabilityFlags : NSObject
 
-static NSString * const kHostAddress = @"localhost:50051";
++ (nonnull instancetype)flagsWithFlags:(SCNetworkReachabilityFlags)flags;
 
-int main(int argc, char * argv[]) {
-  @autoreleasepool {
-    [GRPCCall useInsecureConnectionsForHost:kHostAddress];
-    [GRPCCall setUserAgentPrefix:@"HelloWorld/1.0" forHost:kHostAddress];
+/**
+ * One accessor method to query each of the different flags. Example:
 
-    HLWGreeter *client = [[HLWGreeter alloc] initWithHost:kHostAddress];
+@property(nonatomic, readonly) BOOL isCell;
+ 
+ */
+#define GRX_ITEM(methodName, FlagName) \
+@property(nonatomic, readonly) BOOL methodName;
 
-    HLWHelloRequest *request = [HLWHelloRequest message];
-    request.name = @"Objective-C";
+#include "GRXReachabilityFlagNames.xmacro.h"
+#undef GRX_ITEM
 
-    [client sayHelloWithRequest:request handler:^(HLWHelloReply *response, NSError *error) {
-      NSLog(@"%@", response.message);
-    }];
-    
-    return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
-  }
-}
+@property(nonatomic, readonly) BOOL isHostReachable;
+@end
+
+@interface GRPCConnectivityMonitor : NSObject
+
++ (void)handleLossForHost:(nonnull NSString *)host withHandler:(nonnull void (^)())handler;
+
+/** Use to check the reachability of a given host name. */
++ (nonnull instancetype)monitorWithHost:(nonnull NSString *)hostName;
+
+- (void)handleLossWithHandler:(nonnull void (^)())handler;
+
+- (void)resume;
+- (void)pause;
+
+- (nonnull GRXReachabilityFlags *)currentFlags;
+
+@property(nonatomic, copy, nullable) void (^handler)(GRXReachabilityFlags * _Nonnull flags);
+@property(nonatomic, strong, null_resettable) dispatch_queue_t queue;
+
+@end

@@ -31,20 +31,18 @@
  *
  */
 
-#import "GRPCUnsecuredChannel.h"
+#import <Foundation/Foundation.h>
 
 #include <grpc/grpc.h>
 
-@implementation GRPCUnsecuredChannel
+@interface GRPCChannelState : NSObject
 
-- (instancetype)initWithHost:(NSString *)host {
-  return (self = [super initWithChannel:grpc_insecure_channel_create(host.UTF8String, NULL, NULL)]);
-}
+- (instancetype)initWithUnmanagedChannel:(grpc_channel *)channel NS_DESIGNATED_INITIALIZER;
 
-// TODO(jcanizales): GRPCSecureChannel and GRPCUnsecuredChannel are just convenience initializers
-// for GRPCChannel. Move them into GRPCChannel, which will make the following unnecessary.
-- (instancetype)initWithChannel:(grpc_channel *)unmanagedChannel {
-  [NSException raise:NSInternalInconsistencyException format:@"use the other initializer"];
-  return [self initWithHost:nil]; // silence warnings
-}
+@property(nonatomic, copy) void (^handler)(grpc_connectivity_state state);
+@property(nonatomic, strong) dispatch_queue_t queue;
+
+- (void)resume;
+- (void)pause;
+
 @end

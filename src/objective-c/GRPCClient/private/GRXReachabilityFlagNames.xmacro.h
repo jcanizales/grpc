@@ -1,6 +1,6 @@
 /*
  *
- * Copyright 2015, Google Inc.
+ * Copyright 2016, Google Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -31,25 +31,34 @@
  *
  */
 
-#include <grpc/grpc.h>
-
-#import "GRPCChannel.h"
-
-struct grpc_channel_credentials;
-
-@interface GRPCSecureChannel : GRPCChannel
-- (instancetype)initWithHost:(NSString *)host;
-
 /**
- * Only in tests shouldn't pathToCertificates or hostNameOverride be nil. Passing nil for
- * pathToCertificates results in using the default root certificates distributed with the library.
- */
-- (instancetype)initWithHost:(NSString *)host
-          pathToCertificates:(NSString *)path
-            hostNameOverride:(NSString *)hostNameOverride;
+ * "X-macro" file that lists the flags names of Apple's Network Reachability API, along with a nice
+ * Objective-C method name used to query each of them.
+ *
+ * Example usage: To generate a dictionary from flag value to name, one can do:
 
-/** The passed arguments aren't required to be valid beyond the invocation of this initializer. */
-- (instancetype)initWithHost:(NSString *)host
-                 credentials:(struct grpc_channel_credentials *)credentials
-                        args:(grpc_channel_args *)args NS_DESIGNATED_INITIALIZER;
-@end
+  NSDictionary *flagNames = @{
+#define GRX_ITEM(methodName, FlagName) \
+    @(kSCNetworkReachabilityFlags ## FlagName): @#methodName,
+#include "GRXReachabilityFlagNames.xmacro.h"
+#undef GRX_ITEM
+  };
+
+  XCTAssertEqualObjects(flagNames[@(kSCNetworkReachabilityFlagsIsWWAN)], @"isCell");
+
+ */
+
+#ifndef GRX_ITEM
+#error This file is to be used with the "X-macro" pattern: Please #define \
+       GRX_ITEM(methodName, FlagName), then #include this file, and then #undef GRX_ITEM.
+#endif
+
+GRX_ITEM(isCell, IsWWAN)
+GRX_ITEM(reachable, Reachable)
+GRX_ITEM(transientConnection, TransientConnection)
+GRX_ITEM(connectionRequired, ConnectionRequired)
+GRX_ITEM(connectionOnTraffic, ConnectionOnTraffic)
+GRX_ITEM(interventionRequired, InterventionRequired)
+GRX_ITEM(connectionOnDemand, ConnectionOnDemand)
+GRX_ITEM(isLocalAddress, IsLocalAddress)
+GRX_ITEM(isDirect, IsDirect)

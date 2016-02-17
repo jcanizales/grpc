@@ -227,7 +227,10 @@
 @implementation GRPCWrappedCall {
   GRPCCompletionQueue *_queue;
   grpc_call *_call;
+  grpc_channel *_channel;
 }
+
+@synthesize channelState = _channelState;
 
 - (instancetype)init {
   return [self initWithHost:nil path:nil];
@@ -255,8 +258,23 @@
     if (_call == NULL) {
       return nil;
     }
+    _channel = [GRPCHost hostWithAddress:host].grpc_channel;
   }
   return self;
+}
+
+- (grpc_channel *)grpc_channel {
+  return _channel;
+}
+
+#pragma mark Channel state
+
+- (GRPCChannelState *)channelState {
+  if (!_channelState) {
+    // TODO(jcanizales): Just return the state from the GRPCHost!
+    _channelState = [[GRPCChannelState alloc] initWithUnmanagedChannel:_channel];
+  }
+  return _channelState;
 }
 
 - (void)startBatchWithOperations:(NSArray *)operations {

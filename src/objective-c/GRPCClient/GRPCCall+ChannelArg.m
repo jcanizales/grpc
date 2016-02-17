@@ -1,6 +1,6 @@
 /*
  *
- * Copyright 2015, Google Inc.
+ * Copyright 2016, Google Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -31,29 +31,21 @@
  *
  */
 
-#import <UIKit/UIKit.h>
-#import "AppDelegate.h"
+#import "GRPCCall+ChannelArg.h"
 
-#import <GRPCClient/GRPCCall+ChannelArg.h>
-#import <GRPCClient/GRPCCall+Tests.h>
-#import <HelloWorld/Helloworld.pbrpc.h>
+#import "private/GRPCHost.h"
 
-static NSString * const kHostAddress = @"localhost:50051";
+@implementation GRPCCall (ChannelArg)
 
-int main(int argc, char * argv[]) {
-  @autoreleasepool {
-    [GRPCCall useInsecureConnectionsForHost:kHostAddress];
-    [GRPCCall setUserAgentPrefix:@"HelloWorld/1.0" forHost:kHostAddress];
+static NSString *_userAgentPrefix;
 
-    HLWGreeter *client = [[HLWGreeter alloc] initWithHost:kHostAddress];
-
-    HLWHelloRequest *request = [HLWHelloRequest message];
-    request.name = @"Objective-C";
-
-    [client sayHelloWithRequest:request handler:^(HLWHelloReply *response, NSError *error) {
-      NSLog(@"%@", response.message);
-    }];
-    
-    return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
++ (void)setUserAgentPrefix:(NSString *)userAgentPrefix forHost:(NSString *)host {
+  if (!host) {
+    [NSException raise:NSInvalidArgumentException
+                format:@"host and userAgentPrefix must be provided."];
   }
+  GRPCHost *hostConfig = [GRPCHost hostWithAddress:host];
+  hostConfig.userAgentPrefix = userAgentPrefix;
 }
+
+@end
