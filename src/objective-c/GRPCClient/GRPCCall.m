@@ -164,6 +164,11 @@ NSString * const kGRPCTrailersKey = @"io.grpc.TrailersKey";
 }
 
 - (void)dealloc {
+  // TODO(jcanizales): At the moment, if we don't pause the monitor, it's never dealloc'd because it
+  // retains itself. Fix it by having it retain instead something with a __weak reference to itself
+  // (a block works and apparently is the common idiom for this).
+  [_connectivityMonitor pause];
+
   __block GRPCWrappedCall *wrappedCall = _wrappedCall;
   dispatch_async(_callQueue, ^{
     wrappedCall = nil;

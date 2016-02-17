@@ -198,6 +198,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target,
 }
 
 - (void)pause {
+  SCNetworkReachabilitySetCallback(_reachabilityRef, NULL, NULL);
   SCNetworkReachabilitySetDispatchQueue(_reachabilityRef, NULL);
 }
 
