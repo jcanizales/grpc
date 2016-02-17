@@ -37,7 +37,7 @@
 
 @interface GRXReachabilityFlags : NSObject
 
-+ (instancetype)flagsWithFlags:(SCNetworkReachabilityFlags)flags;
++ (nonnull instancetype)flagsWithFlags:(SCNetworkReachabilityFlags)flags;
 
 /**
  * One accessor method to query each of the different flags. Example:
@@ -56,17 +56,19 @@
 
 @interface GRPCConnectivityMonitor : NSObject
 
-+ (void)handleLossForHost:(NSString *)host withHandler:(void (^)())handler;
++ (void)handleLossForHost:(nonnull NSString *)host withHandler:(nonnull void (^)())handler;
 
 /** Use to check the reachability of a given host name. */
-+ (instancetype)reachabilityWithHost:(NSString *)hostName;
++ (nonnull instancetype)monitorWithHost:(nonnull NSString *)hostName;
+
+- (void)handleLossWithHandler:(nonnull void (^)())handler;
 
 - (void)resume;
 - (void)pause;
 
-- (GRXReachabilityFlags *)currentFlags;
+- (nonnull GRXReachabilityFlags *)currentFlags;
 
-@property(nonatomic, copy) void (^handler)(GRXReachabilityFlags *flags);
-@property(nonatomic, strong) dispatch_queue_t queue;
+@property(nonatomic, copy, nullable) void (^handler)(GRXReachabilityFlags * _Nonnull flags);
+@property(nonatomic, strong, null_resettable) dispatch_queue_t queue;
 
 @end

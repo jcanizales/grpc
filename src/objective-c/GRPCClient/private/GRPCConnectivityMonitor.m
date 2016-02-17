@@ -133,14 +133,21 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target,
 }
 
 + (void)handleLossForHost:(NSString *)host withHandler:(void (^)())handler {
-  __block GRPCConnectivityMonitor *reachability = [self reachabilityWithHost:host];
-  reachability.handler = ^(GRXReachabilityFlags *flags) {
+  __block GRPCConnectivityMonitor *reachability = [self monitorWithHost:host];
+  [reachability handleLossWithHandler:^{
+    handler();
+    NSLog(@"Deallocating anonymous connectivity monitor to host %@.", host);
+    reachability = nil;
+  }];
+}
+
+- (void)handleLossWithHandler:(void (^)())handler {
+  _handler = ^(GRXReachabilityFlags *flags) {
     if (!flags.isHostReachable) {
       handler();
-      reachability = nil;
     }
   };
-  [reachability resume];
+  [self resume];
 }
 
 - (instancetype)initWithReachability:(SCNetworkReachabilityRef)reachability {
@@ -192,6 +199,10 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target,
 
 - (void)pause {
   SCNetworkReachabilitySetDispatchQueue(_reachabilityRef, NULL);
+}
+
+- (void)setQueue:(dispatch_queue_t)queue {
+  _queue = queue ?: dispatch_get_main_queue();
 }
 
 - (void)dealloc {
