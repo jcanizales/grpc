@@ -69,6 +69,8 @@ Pod::Spec.new do |s|
   s.source = { :git => 'https://boringssl.googlesource.com/boringssl',
                :tag => 'version_for_cocoapods_2.0' }
 
+  s.module_name = 'openssl'
+  s.module_map = 'include/openssl/module.modulemap'
   s.source_files = 'ssl/*.{h,c}',
                    'ssl/**/*.{h,c}',
                    '*.{h,c}',
@@ -91,6 +93,22 @@ Pod::Spec.new do |s|
     # OpenSSL in a Swift bridging header (complex.h defines "I", and it's as if the compiler
     # included it in every bridged header).
     sed -E -i '.back' 's/\\*I,/*i,/g' include/openssl/rsa.h
+
+    # Add a module map and an umbrella header
+    touch include/openssl/umbrella.h
+    cat > include/openssl/umbrella.h <<EOF
+      #include "ssl.h"
+      #include "crypto.h"
+
+    EOF
+    touch include/openssl/module.modulemap
+    cat > include/openssl/module.modulemap <<EOF
+      framework module openssl {
+        umbrella header "umbrella.h"
+        export *
+        module * { export * }
+      }
+    EOF
 
     # This is a bit ridiculous, but requiring people to install Go in order to build is slightly
     # more ridiculous IMO. To save you from scrolling, this is the last part of the podspec.
