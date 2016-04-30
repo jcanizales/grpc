@@ -35,10 +35,10 @@
 
 
 Pod::Spec.new do |s|
-  s.name     = 'gRPC'
+  s.name     = 'RxLibrary'
   version = '0.12.0'
   s.version  = version
-  s.summary  = 'gRPC client library for iOS/OSX'
+  s.summary  = 'Reactive Extensions library for iOS/OSX.'
   s.homepage = 'http://www.grpc.io'
   s.license  = 'New BSD'
   s.authors  = { 'The gRPC contributors' => 'grpc-packages@google.com' }
@@ -46,28 +46,13 @@ Pod::Spec.new do |s|
   s.source = { :git => 'https://github.com/grpc/grpc.git',
                :tag => "release-#{version.gsub(/\./, '_')}-objectivec-#{version}" }
 
+
   s.ios.deployment_target = '7.1'
   s.osx.deployment_target = '10.9'
   s.requires_arc = true
 
-  s.module_name = 'GRPCClient'
-
-  objc_dir = 'src/objective-c'
-  src_dir = "#{objc_dir}/GRPCClient"
+  src_dir = 'src/objective-c/RxLibrary'
   s.source_files = "#{src_dir}/*.{h,m}", "#{src_dir}/**/*.{h,m}"
   s.private_header_files = "#{src_dir}/private/*.h"
-  s.header_mappings_dir = "#{objc_dir}"
-
-  s.dependency 'gRPC-Core', '~> 0.12'
-  s.dependency 'RxLibrary', '~> 0.12'
-
-  s.pod_target_xcconfig = {
-    'HEADER_SEARCH_PATHS' => '"$(PODS_ROOT)/Headers/Public/gRPC-Core/include"'
-  }
-  s.user_target_xcconfig = {
-    'HEADER_SEARCH_PATHS' => '"$(PODS_ROOT)/Headers/Public/gRPC"'
-  }
-
-  # Certificates, to be able to establish TLS connections:
-  s.resource_bundles = { 'gRPCCertificates' => ['etc/roots.pem'] }
+  s.header_mappings_dir = "#{src_dir}"
 end

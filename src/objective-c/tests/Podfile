@@ -5,7 +5,12 @@ use_frameworks!
 
 pod 'Protobuf', :path => "../../../third_party/protobuf"
 pod 'BoringSSL', :podspec => ".."
-pod 'gRPC', :path => "../../.."
+
+pod 'gRPC',      :path => "../../.."
+pod 'gRPC-Core', :path => "../../.."
+pod 'RxLibrary', :path => "../../.."
+pod 'ProtoRPC',  :path => "../../.."
+
 pod 'RemoteTest', :path => "RemoteTestClient"
 
 link_with 'AllTests',
