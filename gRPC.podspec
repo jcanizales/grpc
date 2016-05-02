@@ -62,10 +62,10 @@ Pod::Spec.new do |s|
   s.dependency 'RxLibrary', '~> 0.12'
 
   s.pod_target_xcconfig = {
-    'HEADER_SEARCH_PATHS' => '"$(PODS_ROOT)/Headers/Public/gRPC-Core/include"'
+    'HEADER_SEARCH_PATHS' => '"$(inherited)" "$(PODS_ROOT)/Headers/Public/gRPC-Core/include"'
   }
   s.user_target_xcconfig = {
-    'HEADER_SEARCH_PATHS' => '"$(PODS_ROOT)/Headers/Public/gRPC"'
+    'HEADER_SEARCH_PATHS' => '"$(inherited)" "$(PODS_ROOT)/Headers/Public/gRPC"'
   }
 
   # Certificates, to be able to establish TLS connections:

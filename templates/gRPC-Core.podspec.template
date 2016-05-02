@@ -81,13 +81,13 @@
     # This isn't officially supported in Cocoapods. We've asked for an alternative:
     # https://github.com/CocoaPods/CocoaPods/issues/4386
     s.user_target_xcconfig = {
-      'HEADER_SEARCH_PATHS' => '"$(PODS_ROOT)/Headers/Public/gRPC-Core/include"',
+      'HEADER_SEARCH_PATHS' => '"$(inherited)" "$(PODS_ROOT)/Headers/Public/gRPC-Core/include"',
     }
     s.pod_target_xcconfig = {
       'USE_HEADERMAP' => 'NO',
       'ALWAYS_SEARCH_USER_PATHS' => 'NO',
-      'HEADER_SEARCH_PATHS' => '"$(PODS_ROOT)/Headers/Public/gRPC-Core/include"',
-      'USER_HEADER_SEARCH_PATHS' => '"$(PODS_ROOT)/Headers/Private/gRPC-Core"',
+      'HEADER_SEARCH_PATHS' => '"$(inherited)" "$(PODS_ROOT)/Headers/Public/gRPC-Core/include"',
+      'USER_HEADER_SEARCH_PATHS' => '"$(inherited)" "$(PODS_ROOT)/Headers/Private/gRPC-Core"',
     }
 
     s.libraries = 'z'
