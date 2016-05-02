@@ -15,7 +15,7 @@ pod 'RemoteTest', :path => "RemoteTestClient"
 
 link_with 'AllTests',
           'RxLibraryUnitTests',
-          'InteropTests',
+          'InteropTestsRemote',
           'InteropTestsLocalSSL',
           'InteropTestsLocalCleartext'
 
