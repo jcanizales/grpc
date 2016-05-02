@@ -95,13 +95,11 @@ Pod::Spec.new do |s|
     sed -E -i '.back' 's/\\*I,/*i,/g' include/openssl/rsa.h
 
     # Add a module map and an umbrella header
-    touch include/openssl/umbrella.h
     cat > include/openssl/umbrella.h <<EOF
       #include "ssl.h"
       #include "crypto.h"
 
     EOF
-    touch include/openssl/module.modulemap
     cat > include/openssl/module.modulemap <<EOF
       framework module openssl {
         umbrella header "umbrella.h"
