@@ -54,6 +54,7 @@ Pod::Spec.new do |s|
   s.requires_arc = false
 
   s.module_name = 'grpc'
+  s.module_map = 'include/grpc/module.modulemap'
 
   s.source_files = 'src/core/lib/profiling/timers.h',
                     'src/core/lib/support/backoff.h',
