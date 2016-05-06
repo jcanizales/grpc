@@ -10,6 +10,13 @@
 		6384CE781CDC6676009D88DB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6384CE771CDC6676009D88DB /* main.m */; };
 		6384CE811CDC6676009D88DB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6384CE7F1CDC6676009D88DB /* Main.storyboard */; };
 		6384CE831CDC6676009D88DB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6384CE821CDC6676009D88DB /* Assets.xcassets */; };
+		63BBDB971CDD5D3600EBE06F /* GRPCClientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 63BBDB961CDD5D3600EBE06F /* GRPCClientTests.m */; };
+		63BBDB9E1CDD5DB000EBE06F /* InteropTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 63BBDB991CDD5DB000EBE06F /* InteropTests.m */; };
+		63BBDB9F1CDD5DB000EBE06F /* InteropTestsLocalCleartext.m in Sources */ = {isa = PBXBuildFile; fileRef = 63BBDB9A1CDD5DB000EBE06F /* InteropTestsLocalCleartext.m */; };
+		63BBDBA01CDD5DB000EBE06F /* InteropTestsLocalSSL.m in Sources */ = {isa = PBXBuildFile; fileRef = 63BBDB9B1CDD5DB000EBE06F /* InteropTestsLocalSSL.m */; };
+		63BBDBA11CDD5DB000EBE06F /* InteropTestsRemote.m in Sources */ = {isa = PBXBuildFile; fileRef = 63BBDB9C1CDD5DB000EBE06F /* InteropTestsRemote.m */; };
+		63BBDBA21CDD5DB000EBE06F /* RxLibraryUnitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 63BBDB9D1CDD5DB000EBE06F /* RxLibraryUnitTests.m */; };
+		63BBDBA41CDD5DF400EBE06F /* TestCertificates.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 63BBDBA31CDD5DF400EBE06F /* TestCertificates.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,6 +37,14 @@
 		6384CE871CDC6676009D88DB /* AppInfo.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = AppInfo.plist; sourceTree = "<group>"; };
 		6384CE8C1CDC6676009D88DB /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6384CE921CDC6676009D88DB /* TestsInfo.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = TestsInfo.plist; path = Tests/TestsInfo.plist; sourceTree = "<group>"; };
+		63BBDB961CDD5D3600EBE06F /* GRPCClientTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GRPCClientTests.m; sourceTree = SOURCE_ROOT; };
+		63BBDB981CDD5DB000EBE06F /* InteropTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InteropTests.h; sourceTree = SOURCE_ROOT; };
+		63BBDB991CDD5DB000EBE06F /* InteropTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InteropTests.m; sourceTree = SOURCE_ROOT; };
+		63BBDB9A1CDD5DB000EBE06F /* InteropTestsLocalCleartext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InteropTestsLocalCleartext.m; sourceTree = SOURCE_ROOT; };
+		63BBDB9B1CDD5DB000EBE06F /* InteropTestsLocalSSL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InteropTestsLocalSSL.m; sourceTree = SOURCE_ROOT; };
+		63BBDB9C1CDD5DB000EBE06F /* InteropTestsRemote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InteropTestsRemote.m; sourceTree = SOURCE_ROOT; };
+		63BBDB9D1CDD5DB000EBE06F /* RxLibraryUnitTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RxLibraryUnitTests.m; sourceTree = SOURCE_ROOT; };
+		63BBDBA31CDD5DF400EBE06F /* TestCertificates.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = TestCertificates.bundle; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +97,14 @@
 		6384CE8F1CDC6676009D88DB /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				63BBDB961CDD5D3600EBE06F /* GRPCClientTests.m */,
+				63BBDB981CDD5DB000EBE06F /* InteropTests.h */,
+				63BBDB991CDD5DB000EBE06F /* InteropTests.m */,
+				63BBDB9A1CDD5DB000EBE06F /* InteropTestsLocalCleartext.m */,
+				63BBDB9B1CDD5DB000EBE06F /* InteropTestsLocalSSL.m */,
+				63BBDB9C1CDD5DB000EBE06F /* InteropTestsRemote.m */,
+				63BBDB9D1CDD5DB000EBE06F /* RxLibraryUnitTests.m */,
+				63BBDBA31CDD5DF400EBE06F /* TestCertificates.bundle */,
 				6384CE921CDC6676009D88DB /* TestsInfo.plist */,
 			);
 			name = Tests;
@@ -177,6 +200,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63BBDBA41CDD5DF400EBE06F /* TestCertificates.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -195,6 +219,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63BBDBA11CDD5DB000EBE06F /* InteropTestsRemote.m in Sources */,
+				63BBDB9F1CDD5DB000EBE06F /* InteropTestsLocalCleartext.m in Sources */,
+				63BBDB971CDD5D3600EBE06F /* GRPCClientTests.m in Sources */,
+				63BBDBA01CDD5DB000EBE06F /* InteropTestsLocalSSL.m in Sources */,
+				63BBDB9E1CDD5DB000EBE06F /* InteropTests.m in Sources */,
+				63BBDBA21CDD5DB000EBE06F /* RxLibraryUnitTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
