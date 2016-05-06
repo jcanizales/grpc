@@ -10,7 +10,6 @@
 		6384CE781CDC6676009D88DB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6384CE771CDC6676009D88DB /* main.m */; };
 		6384CE811CDC6676009D88DB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6384CE7F1CDC6676009D88DB /* Main.storyboard */; };
 		6384CE831CDC6676009D88DB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6384CE821CDC6676009D88DB /* Assets.xcassets */; };
-		6384CE911CDC6676009D88DB /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6384CE901CDC6676009D88DB /* Tests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -28,10 +27,9 @@
 		6384CE771CDC6676009D88DB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		6384CE801CDC6676009D88DB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		6384CE821CDC6676009D88DB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		6384CE871CDC6676009D88DB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6384CE871CDC6676009D88DB /* AppInfo.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = AppInfo.plist; sourceTree = "<group>"; };
 		6384CE8C1CDC6676009D88DB /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		6384CE901CDC6676009D88DB /* Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tests.m; sourceTree = "<group>"; };
-		6384CE921CDC6676009D88DB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6384CE921CDC6676009D88DB /* TestsInfo.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = TestsInfo.plist; path = Tests/TestsInfo.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,22 +73,20 @@
 			children = (
 				6384CE7F1CDC6676009D88DB /* Main.storyboard */,
 				6384CE821CDC6676009D88DB /* Assets.xcassets */,
-				6384CE871CDC6676009D88DB /* Info.plist */,
+				6384CE871CDC6676009D88DB /* AppInfo.plist */,
 				6384CE771CDC6676009D88DB /* main.m */,
 			);
-			name = App;
-			path = Tests;
-			sourceTree = "<group>";
+			path = App;
+			sourceTree = SOURCE_ROOT;
 		};
 		6384CE8F1CDC6676009D88DB /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				6384CE901CDC6676009D88DB /* Tests.m */,
-				6384CE921CDC6676009D88DB /* Info.plist */,
+				6384CE921CDC6676009D88DB /* TestsInfo.plist */,
 			);
 			name = Tests;
-			path = TestsTests;
-			sourceTree = "<group>";
+			path = Tests/TestsTests;
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 
@@ -199,7 +195,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6384CE911CDC6676009D88DB /* Tests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -312,7 +307,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				INFOPLIST_FILE = Tests/Info.plist;
+				INFOPLIST_FILE = App/AppInfo.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.grpc.Tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -324,7 +319,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				INFOPLIST_FILE = Tests/Info.plist;
+				INFOPLIST_FILE = App/AppInfo.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.grpc.Tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -335,7 +330,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = TestsTests/Info.plist;
+				INFOPLIST_FILE = Tests/TestsInfo.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.grpc.TestsTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -347,7 +342,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = TestsTests/Info.plist;
+				INFOPLIST_FILE = Tests/TestsInfo.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.grpc.TestsTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
