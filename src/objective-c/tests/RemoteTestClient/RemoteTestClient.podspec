@@ -1,5 +1,5 @@
 Pod::Spec.new do |s|
-  s.name     = "RemoteTest"
+  s.name     = "RemoteTestClient"
   s.version  = "0.0.1"
   s.license  = "New BSD"
 
@@ -25,7 +25,7 @@ Pod::Spec.new do |s|
     ss.source_files = "*.pbrpc.{h,m}"
     ss.header_mappings_dir = "."
     ss.requires_arc = true
-    ss.dependency "gRPC", "~> 0.12"
+    ss.dependency "gRPC", "~> 0.13"
     ss.dependency "#{s.name}/Messages"
   end
 end
