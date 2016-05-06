@@ -15,17 +15,17 @@ link_with 'AllTests',
 target 'Tests' do
 end
 
-target 'AllTests' do
-end
+# target 'AllTests' do
+# end
 
-target 'RxLibraryUnitTests' do
-end
+# target 'RxLibraryUnitTests' do
+# end
 
-target 'InteropTestsRemote' do
-end
+# target 'InteropTestsRemote' do
+# end
 
-target 'InteropTestsLocalSSL' do
-end
+# target 'InteropTestsLocalSSL' do
+# end
 
-target 'InteropTestsLocalCleartext' do
-end
+# target 'InteropTestsLocalCleartext' do
+# end
