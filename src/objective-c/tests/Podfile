@@ -1,18 +1,11 @@
 source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '8.0'
 
-pod 'Protobuf', :path => "../../../third_party/protobuf"
-pod 'BoringSSL', :podspec => ".."
-pod 'gRPC', :path => "../../.."
-pod 'RemoteTestClient', :path => "RemoteTestClient"
-
-link_with 'AllTests',
-          'RxLibraryUnitTests',
-          'InteropTests',
-          'InteropTestsLocalSSL',
-          'InteropTestsLocalCleartext'
-
 target 'Tests' do
+  pod 'Protobuf', :path => "../../../third_party/protobuf"
+  pod 'BoringSSL', :podspec => ".."
+  pod 'gRPC', :path => "../../.."
+  pod 'RemoteTestClient', :path => "RemoteTestClient"
 end
 
 # target 'AllTests' do
