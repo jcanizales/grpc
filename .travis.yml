@@ -14,6 +14,9 @@ before_install:
   - pod --version
   - brew install gflags
 install:
+  - pushd third_party/protobuf
+  - git checkout 79a23c435c4862d0c7af3c2740662104c77171dc
+  - popd
   - make grpc_objective_c_plugin
   - pushd src/objective-c/tests
   - pod install
