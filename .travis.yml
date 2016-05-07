@@ -7,11 +7,9 @@ env:
     - TEST=objc
     - JOBS=1
 before_install:
-  - gem which cocoapods
   - pod --version
   - gem uninstall cocoapods -a
   - gem install cocoapods -v '1.0.0.rc.1'
-  - gem which cocoapods
   - pod --version
   - brew update && brew reinstall --HEAD xctool || true
   - brew install gflags
