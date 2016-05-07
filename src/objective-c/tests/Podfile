@@ -3,24 +3,17 @@ platform :ios, '8.0'
 
 install! 'cocoapods', :deterministic_uuids => false
 
-target 'Tests' do
+def shared_pods
   pod 'Protobuf', :path => "../../../third_party/protobuf"
   pod 'BoringSSL', :podspec => ".."
   pod 'gRPC', :path => "../../.."
   pod 'RemoteTestClient', :path => "RemoteTestClient"
 end
 
-# target 'AllTests' do
-# end
+target 'AllTests' do
+  shared_pods
+end
 
-# target 'RxLibraryUnitTests' do
-# end
-
-# target 'InteropTestsRemote' do
-# end
-
-# target 'InteropTestsLocalSSL' do
-# end
-
-# target 'InteropTestsLocalCleartext' do
-# end
+target 'SelfContainedTests' do
+  shared_pods
+end

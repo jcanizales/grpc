@@ -27,6 +27,13 @@
 			remoteGlobalIDString = 6384CE721CDC6676009D88DB;
 			remoteInfo = Tests;
 		};
+		639CF6001CDD735400E64122 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6384CE6B1CDC6675009D88DB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6384CE721CDC6676009D88DB;
+			remoteInfo = App;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -35,8 +42,9 @@
 		6384CE801CDC6676009D88DB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		6384CE821CDC6676009D88DB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6384CE871CDC6676009D88DB /* AppInfo.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = AppInfo.plist; sourceTree = "<group>"; };
-		6384CE8C1CDC6676009D88DB /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		6384CE8C1CDC6676009D88DB /* AllTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AllTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6384CE921CDC6676009D88DB /* TestsInfo.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = TestsInfo.plist; path = Tests/TestsInfo.plist; sourceTree = "<group>"; };
+		639CF5FB1CDD735400E64122 /* SelfContainedTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SelfContainedTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		63BBDB961CDD5D3600EBE06F /* GRPCClientTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GRPCClientTests.m; sourceTree = SOURCE_ROOT; };
 		63BBDB981CDD5DB000EBE06F /* InteropTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InteropTests.h; sourceTree = SOURCE_ROOT; };
 		63BBDB991CDD5DB000EBE06F /* InteropTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InteropTests.m; sourceTree = SOURCE_ROOT; };
@@ -78,7 +86,8 @@
 			isa = PBXGroup;
 			children = (
 				6384CE731CDC6676009D88DB /* App.app */,
-				6384CE8C1CDC6676009D88DB /* Tests.xctest */,
+				6384CE8C1CDC6676009D88DB /* AllTests.xctest */,
+				639CF5FB1CDD735400E64122 /* SelfContainedTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -131,9 +140,9 @@
 			productReference = 6384CE731CDC6676009D88DB /* App.app */;
 			productType = "com.apple.product-type.application";
 		};
-		6384CE8B1CDC6676009D88DB /* Tests */ = {
+		6384CE8B1CDC6676009D88DB /* AllTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6384CE981CDC6676009D88DB /* Build configuration list for PBXNativeTarget "Tests" */;
+			buildConfigurationList = 6384CE981CDC6676009D88DB /* Build configuration list for PBXNativeTarget "AllTests" */;
 			buildPhases = (
 				6384CE881CDC6676009D88DB /* Sources */,
 				6384CE891CDC6676009D88DB /* Frameworks */,
@@ -144,9 +153,27 @@
 			dependencies = (
 				6384CE8E1CDC6676009D88DB /* PBXTargetDependency */,
 			);
-			name = Tests;
+			name = AllTests;
 			productName = TestsTests;
-			productReference = 6384CE8C1CDC6676009D88DB /* Tests.xctest */;
+			productReference = 6384CE8C1CDC6676009D88DB /* AllTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		639CF5FA1CDD735400E64122 /* SelfContainedTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 639CF6021CDD735400E64122 /* Build configuration list for PBXNativeTarget "SelfContainedTests" */;
+			buildPhases = (
+				639CF5F71CDD735400E64122 /* Sources */,
+				639CF5F81CDD735400E64122 /* Frameworks */,
+				639CF5F91CDD735400E64122 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				639CF6011CDD735400E64122 /* PBXTargetDependency */,
+			);
+			name = SelfContainedTests;
+			productName = SelfContainedTests;
+			productReference = 639CF5FB1CDD735400E64122 /* SelfContainedTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -165,6 +192,10 @@
 						CreatedOnToolsVersion = 7.2.1;
 						TestTargetID = 6384CE721CDC6676009D88DB;
 					};
+					639CF5FA1CDD735400E64122 = {
+						CreatedOnToolsVersion = 7.3.1;
+						TestTargetID = 6384CE721CDC6676009D88DB;
+					};
 				};
 			};
 			buildConfigurationList = 6384CE6E1CDC6675009D88DB /* Build configuration list for PBXProject "Tests" */;
@@ -181,7 +212,8 @@
 			projectRoot = "";
 			targets = (
 				6384CE721CDC6676009D88DB /* App */,
-				6384CE8B1CDC6676009D88DB /* Tests */,
+				6384CE8B1CDC6676009D88DB /* AllTests */,
+				639CF5FA1CDD735400E64122 /* SelfContainedTests */,
 			);
 		};
 /* End PBXProject section */
@@ -201,6 +233,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				63BBDBA41CDD5DF400EBE06F /* TestCertificates.bundle in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		639CF5F91CDD735400E64122 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				639CF6081CDD73C800E64122 /* TestCertificates.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -228,6 +268,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		639CF5F71CDD735400E64122 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				639CF6051CDD73B900E64122 /* InteropTests.m in Sources */,
+				639CF6061CDD73C000E64122 /* InteropTestsRemote.m in Sources */,
+				639CF6071CDD73C400E64122 /* RxLibraryUnitTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -235,6 +285,11 @@
 			isa = PBXTargetDependency;
 			target = 6384CE721CDC6676009D88DB /* App */;
 			targetProxy = 6384CE8D1CDC6676009D88DB /* PBXContainerItemProxy */;
+		};
+		639CF6011CDD735400E64122 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6384CE721CDC6676009D88DB /* App */;
+			targetProxy = 639CF6001CDD735400E64122 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -380,6 +435,34 @@
 			};
 			name = Release;
 		};
+		639CF6031CDD735400E64122 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				INFOPLIST_FILE = Tests/TestsInfo.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = io.grpc.SelfContainedTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/App.app/App";
+			};
+			name = Debug;
+		};
+		639CF6041CDD735400E64122 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				INFOPLIST_FILE = Tests/TestsInfo.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = io.grpc.SelfContainedTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/App.app/App";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -401,7 +484,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6384CE981CDC6676009D88DB /* Build configuration list for PBXNativeTarget "Tests" */ = {
+		6384CE981CDC6676009D88DB /* Build configuration list for PBXNativeTarget "AllTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6384CE991CDC6676009D88DB /* Debug */,
@@ -409,6 +492,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		639CF6021CDD735400E64122 /* Build configuration list for PBXNativeTarget "SelfContainedTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				639CF6031CDD735400E64122 /* Debug */,
+				639CF6041CDD735400E64122 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
