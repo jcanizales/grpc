@@ -9,9 +9,14 @@ before_install:
   - brew install gflags
   - gem which cocoapods
   - pod --version
+  - echo ~
   - export PATH=~/.gem/ruby/2.0.0/bin:$PATH
+  - ls ~/.gem/ruby/2.0.0/bin
   - gem install cocoapods -v '1.0.0.rc.1' --user-install
   - gem which cocoapods
+  - ls -1 '/Users/travis/.rvm/gems/ruby-2.0.0-p648/gems' | grep cocoapods
+  - ls ~/.gem/ruby/
+  - ls ~/.gem/ruby/2.0.0/bin
   - pod --version
 install:
   - make grpc_objective_c_plugin
