@@ -1,5 +1,6 @@
 language: objective-c
-osx_image: xcode7.3
+osx_image: xcode7.2
+xcode_sdk: iphonesimulator9.2
 env:
   global:
     - CONFIG=opt
@@ -28,6 +29,5 @@ before_script:
   - bins/$CONFIG/interop_server --port=5051 --use_tls &
 xcode_workspace: src/objective-c/tests/Tests.xcworkspace
 xcode_scheme: AllTests
-xcode_sdk: iphonesimulator9.3
 notifications:
   email: false
