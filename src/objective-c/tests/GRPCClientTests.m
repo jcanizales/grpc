@@ -39,7 +39,7 @@
 #import <GRPCClient/GRPCCall+OAuth2.h>
 #import <GRPCClient/GRPCCall+Tests.h>
 #import <ProtoRPC/ProtoMethod.h>
-#import <RemoteTest/Messages.pbobjc.h>
+#import <RemoteTestClient/Messages.pbobjc.h>
 #import <RxLibrary/GRXWriteable.h>
 #import <RxLibrary/GRXWriter+Immediate.h>
 
