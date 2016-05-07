@@ -11,7 +11,7 @@ before_install:
   - gem uninstall cocoapods -a
   - gem install cocoapods -v '1.0.0.rc.1'
   - pod --version
-  - brew update && brew reinstall --HEAD xctool || true
+  - brew update || true
   - brew install gflags
 install:
   - pushd third_party/protobuf
