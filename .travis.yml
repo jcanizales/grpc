@@ -8,9 +8,8 @@ env:
 before_install:
   - gem which cocoapods
   - pod --version
-  - export PATH=~/.gem/ruby/2.0.0/bin:$PATH
-  - export PATH=~/.rvm/gems/ruby-2.0.0-p648/bin:$PATH
-  - gem install cocoapods -v '1.0.0.rc.1' --user-install
+  - gem uninstall cocoapods -a
+  - gem install cocoapods -v '1.0.0.rc.1'
   - gem which cocoapods
   - pod --version
   - brew install gflags
