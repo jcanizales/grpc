@@ -41,15 +41,24 @@ cd $(dirname $0)
 # Kill them when this script exits.
 trap 'kill -9 `jobs -p`' EXIT
 
-# xcodebuild is very verbose. We filter its output and tell Bash to fail if any
-# element of the pipe fails.
-# TODO(jcanizales): Use xctool instead? Issue #2540.
-set -o pipefail
-XCODEBUILD_FILTER='(^===|^\*\*|\bfatal\b|\berror\b|\bwarning\b|\bfail)'
-xcodebuild \
-    -workspace Tests.xcworkspace \
-    -scheme AllTests \
-    -destination name="iPhone 6" \
-    test \
-    | egrep "$XCODEBUILD_FILTER" \
-    | egrep -v "(GPBDictionary|GPBArray)" -
+if [ ! hash xctool 2>/dev/null ]; then
+  xctool \
+      -workspace Tests.xcworkspace \
+      -scheme AllTests \
+      -sdk iphonesimulator9.3 \
+      build \
+      test
+else
+  # xcodebuild is very verbose. We filter its output and tell Bash to fail if any
+  # element of the pipe fails.
+  set -o pipefail
+
+  XCODEBUILD_FILTER='(^===|^\*\*|\bfatal\b|\berror\b|\bwarning\b|\bfail)'
+  xcodebuild \
+      -workspace Tests.xcworkspace \
+      -scheme AllTests \
+      -destination name="iPhone 6" \
+      test \
+      | egrep "$XCODEBUILD_FILTER" \
+      | egrep -v "(GPBDictionary|GPBArray)" -
+fi
