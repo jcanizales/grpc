@@ -148,7 +148,7 @@
       ":${dep}_objc",
   % endfor
   % if lib.get('secure', False):
-      "//external:libssl_objc",
+      "@boringssl//:objc_ssl",
   % endif
     ],
   % if lib.get("baselib", false):
