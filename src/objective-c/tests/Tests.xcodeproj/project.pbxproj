@@ -10,6 +10,10 @@
 		6384CE781CDC6676009D88DB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6384CE771CDC6676009D88DB /* main.m */; };
 		6384CE811CDC6676009D88DB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6384CE7F1CDC6676009D88DB /* Main.storyboard */; };
 		6384CE831CDC6676009D88DB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6384CE821CDC6676009D88DB /* Assets.xcassets */; };
+		639CF6091CDDCAC800E64122 /* InteropTestsRemote.m in Sources */ = {isa = PBXBuildFile; fileRef = 63BBDB9C1CDD5DB000EBE06F /* InteropTestsRemote.m */; };
+		639CF60A1CDDCACD00E64122 /* RxLibraryUnitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 63BBDB9D1CDD5DB000EBE06F /* RxLibraryUnitTests.m */; };
+		639CF60B1CDDCAD200E64122 /* InteropTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 63BBDB991CDD5DB000EBE06F /* InteropTests.m */; };
+		639CF60C1CDDCAD800E64122 /* TestCertificates.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 63BBDBA31CDD5DF400EBE06F /* TestCertificates.bundle */; };
 		63BBDB971CDD5D3600EBE06F /* GRPCClientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 63BBDB961CDD5D3600EBE06F /* GRPCClientTests.m */; };
 		63BBDB9E1CDD5DB000EBE06F /* InteropTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 63BBDB991CDD5DB000EBE06F /* InteropTests.m */; };
 		63BBDB9F1CDD5DB000EBE06F /* InteropTestsLocalCleartext.m in Sources */ = {isa = PBXBuildFile; fileRef = 63BBDB9A1CDD5DB000EBE06F /* InteropTestsLocalCleartext.m */; };
@@ -240,7 +244,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				639CF6081CDD73C800E64122 /* TestCertificates.bundle in Resources */,
+				639CF60C1CDDCAD800E64122 /* TestCertificates.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -272,9 +276,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				639CF6051CDD73B900E64122 /* InteropTests.m in Sources */,
-				639CF6061CDD73C000E64122 /* InteropTestsRemote.m in Sources */,
-				639CF6071CDD73C400E64122 /* RxLibraryUnitTests.m in Sources */,
+				639CF6091CDDCAC800E64122 /* InteropTestsRemote.m in Sources */,
+				639CF60A1CDDCACD00E64122 /* RxLibraryUnitTests.m in Sources */,
+				639CF60B1CDDCAD200E64122 /* InteropTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
