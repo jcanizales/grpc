@@ -1234,7 +1234,6 @@ cc_library(
 
 
 
-
 objc_library(
   name = "gpr_objc",
   srcs = [
@@ -1348,7 +1347,6 @@ objc_library(
   deps = [
   ],
 )
-
 
 
 objc_library(
@@ -1516,6 +1514,10 @@ objc_library(
     "third_party/objective_c/Cronet/cronet_c_for_grpc.h",
     "src/core/ext/lb_policy/grpclb/load_balancer_api.h",
     "src/core/ext/lb_policy/grpclb/proto/grpc/lb/v0/load_balancer.pb.h",
+    "third_party/nanopb/pb.h",
+    "third_party/nanopb/pb_common.h",
+    "third_party/nanopb/pb_decode.h",
+    "third_party/nanopb/pb_encode.h",
     "src/core/ext/census/aggregation.h",
     "src/core/ext/census/census_interface.h",
     "src/core/ext/census/census_rpc_stats.h",
@@ -1673,6 +1675,9 @@ objc_library(
     "src/core/ext/transport/cronet/transport/cronet_transport.c",
     "src/core/ext/lb_policy/grpclb/load_balancer_api.c",
     "src/core/ext/lb_policy/grpclb/proto/grpc/lb/v0/load_balancer.pb.c",
+    "third_party/nanopb/pb_common.c",
+    "third_party/nanopb/pb_decode.c",
+    "third_party/nanopb/pb_encode.c",
     "src/core/ext/lb_policy/pick_first/pick_first.c",
     "src/core/ext/lb_policy/round_robin/round_robin.c",
     "src/core/ext/resolver/dns/native/dns_resolver.c",
@@ -1727,7 +1732,6 @@ objc_library(
   deps = [
     ":gpr_objc",
     "//external:libssl_objc",
-    "//external:nanopb",
   ],
   sdk_dylibs = ["libz"],
 )
