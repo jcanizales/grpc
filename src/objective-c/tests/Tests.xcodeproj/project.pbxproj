@@ -500,6 +500,7 @@
 				639CF6041CDD735400E64122 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
