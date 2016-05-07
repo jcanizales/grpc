@@ -21,6 +21,11 @@
                BlueprintName = "SelfContainedTests"
                ReferencedContainer = "container:Tests.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "InteropTests">
+               </Test>
+            </SkippedTests>
          </TestableReference>
       </Testables>
       <AdditionalOptions>
