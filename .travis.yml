@@ -11,8 +11,7 @@ before_install:
   - pod --version
   - echo ~
   - export PATH=~/.gem/ruby/2.0.0/bin:$PATH
-  - ls -H ~/.gem/ruby/ || echo failed
-  - ls -H ~/.gem/ruby/2.0.0/bin || echo failed
+  - ls -H -1 '~/.rvm/gems' | grep cocoapods
   - ls -H -1 '~/.rvm/gems/ruby-2.0.0-p648/gems' | grep cocoapods
   - gem install cocoapods -v '1.0.0.rc.1' --user-install
   - gem which cocoapods
