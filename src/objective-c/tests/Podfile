@@ -3,6 +3,10 @@ platform :ios, '8.0'
 
 install! 'cocoapods', :deterministic_uuids => false
 
+if ENV['USE_FRAMEWORKS'] == 'YES' then
+  use_frameworks!
+end
+
 def shared_pods
   pod 'Protobuf', :path => "../../../third_party/protobuf"
   pod 'BoringSSL', :podspec => ".."
