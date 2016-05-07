@@ -133,15 +133,15 @@
   objc_library(
     name = "${lib.name}_objc",
     srcs = [
+  % for hdr in hdrs:
+      "${hdr}",
+  % endfor
   % for src in srcs:
       "${src}",
   % endfor
     ],
     hdrs = [
   % for hdr in lib.get("public_headers", []):
-      "${hdr}",
-  % endfor
-  % for hdr in hdrs:
       "${hdr}",
   % endfor
     ],
