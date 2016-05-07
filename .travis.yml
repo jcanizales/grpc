@@ -11,14 +11,14 @@ before_install:
   - pod --version
   - echo ~
   - export PATH=~/.gem/ruby/2.0.0/bin:$PATH
-  - ls ~/.gem/ruby/ || echo failed
-  - ls ~/.gem/ruby/2.0.0/bin || echo failed
-  - ls -1 '~/.rvm/gems/ruby-2.0.0-p648/gems' | grep cocoapods
+  - ls -H ~/.gem/ruby/ || echo failed
+  - ls -H ~/.gem/ruby/2.0.0/bin || echo failed
+  - ls -H -1 '~/.rvm/gems/ruby-2.0.0-p648/gems' | grep cocoapods
   - gem install cocoapods -v '1.0.0.rc.1' --user-install
   - gem which cocoapods
-  - ls -1 '~/.rvm/gems/ruby-2.0.0-p648/gems' | grep cocoapods
-  - ls ~/.gem/ruby/ || echo failed
-  - ls ~/.gem/ruby/2.0.0/bin || echo failed
+  - ls -H -1 '~/.rvm/gems/ruby-2.0.0-p648/gems' | grep cocoapods
+  - ls -H ~/.gem/ruby/ || echo failed
+  - ls -H ~/.gem/ruby/2.0.0/bin || echo failed
   - pod --version
 install:
   - make grpc_objective_c_plugin
