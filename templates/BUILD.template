@@ -243,3 +243,28 @@
       "//external:protobuf_objc",
     ],
   )
+
+  # genrule(
+  #   name = "grpc_exported_symbols",
+  #   srcs = [":libgrpc_objc.a"],
+  #   outs = ["exported_symbols.txt"],
+  #   cmd = "nm --extern-only --defined-only --no-sort --print-file-name $< "
+  #       + " | cut -d ' ' -f 4 "
+  #       + " | sort > $@",
+  # )
+
+  ios_framework_binary(
+    name = "ios_framework_binary",
+    hdrs = [],
+    includes = ["include"],
+    deps = [
+      ":grpc_objc",
+      ":gpr_objc",
+    ],
+  )
+
+  ios_framework(
+    name = "ios_framework",
+    hdrs = [],
+    binary = ":ios_framework_binary",
+  )

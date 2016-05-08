@@ -1731,7 +1731,7 @@ objc_library(
   ],
   deps = [
     ":gpr_objc",
-    "@boringssl//:objc_ssl",
+    ":objc_ssl",
   ],
   sdk_dylibs = ["libz"],
 )
@@ -1885,4 +1885,56 @@ objc_library(
     ":rx_library",
     "//external:protobuf_objc",
   ],
+)
+
+# genrule(
+#   name = "grpc_exported_symbols",
+#   srcs = [":libgrpc_objc.a"],
+#   outs = ["exported_symbols.txt"],
+#   cmd = "nm --extern-only --defined-only --no-sort --print-file-name $< "
+#       + " | cut -d ' ' -f 4 "
+#       + " | sort > $@",
+# )
+
+ios_framework_binary(
+  name = "ios_framework_binary",
+  hdrs = [],
+  includes = ["include"],
+  deps = [
+    ":grpc_objc",
+    ":gpr_objc",
+  ],
+)
+
+ios_framework(
+  name = "ios_framework",
+  hdrs = [],
+  binary = ":ios_framework_binary",
+)
+
+objc_library(
+    name = "objc_ssl",
+    srcs = glob([
+      "third_party/boringssl/ssl/*.h",
+      "third_party/boringssl/ssl/*.c",
+      "third_party/boringssl/ssl/**/*.h",
+      "third_party/boringssl/ssl/**/*.c",
+      "third_party/boringssl/crypto/*.h",
+      "third_party/boringssl/crypto/*.c",
+      "third_party/boringssl/crypto/**/*.h",
+      "third_party/boringssl/crypto/**/*.c",
+      "src/boringssl/err_data.c",
+      "third_party/boringssl/include/openssl/*.h",
+    ]),
+    hdrs = glob([
+      "third_party/boringssl/include/openssl/*.h",
+    ]),
+    copts = [
+        "-DOPENSSL_NO_ASM",
+        "-Wno-shorten-64-to-32",
+    ],
+    includes = [
+        "third_party/boringssl/include",
+    ],
+    visibility = ["//visibility:public"],
 )
