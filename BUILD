@@ -1876,7 +1876,7 @@ ios_framework_binary(
 )
 
 ios_framework(
-  name = "ios_framework",
+  name = "grpc_ios_framework",
   hdrs = [],
   binary = ":ios_framework_binary",
 )

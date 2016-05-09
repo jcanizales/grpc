@@ -54,8 +54,8 @@ Pod::Spec.new do |s|
 
   s.module_name = 'grpc'
 
-  s.vendored_framework = 'grpc.framework'
-  s.xcconfig = { 'FRAMEWORK_SEARCH_PATHS' => '/tmp/framework/Build/Products/Debug-iphonesimulator' }
+  s.vendored_framework = 'src/objective-c/tests/Pods/frameworks/grpc.framework'
+  s.xcconfig = { 'FRAMEWORK_SEARCH_PATHS' => '$(PODS_ROOT)/frameworks' }
 
   s.libraries = 'z'
   # s.dependency 'BoringSSL', '~> 2.0'

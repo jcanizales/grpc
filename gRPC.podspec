@@ -41,7 +41,7 @@ Pod::Spec.new do |s|
   s.source = {
     :git => 'https://github.com/grpc/grpc.git',
     :tag => "release-#{version.gsub(/\./, '_')}-objectivec-#{version}",
-    :submodules => true
+    :submodules => true,
   }
 
   s.module_name = 'GRPCClient'
@@ -57,13 +57,16 @@ Pod::Spec.new do |s|
   s.header_mappings_dir = "#{objc_dir}"
 
   s.dependency 'gRPC-Core', '~> 0.12'
+  s.framework = 'grpc'
+
   s.dependency 'RxLibrary', '~> 0.12'
 
   s.pod_target_xcconfig = {
-    'HEADER_SEARCH_PATHS' => '"$(PODS_ROOT)/Headers/Public/gRPC-Core/include"'
+    'FRAMEWORK_SEARCH_PATHS' => '$(PODS_ROOT)/frameworks',
+    'HEADER_SEARCH_PATHS' => '"$(PODS_ROOT)/Headers/Public/gRPC-Core/include"',
   }
   s.user_target_xcconfig = {
-    'HEADER_SEARCH_PATHS' => '"$(PODS_ROOT)/Headers/Public/gRPC"'
+    'HEADER_SEARCH_PATHS' => '"$(PODS_ROOT)/Headers/Public/gRPC"',
   }
 
   # Certificates, to be able to establish TLS connections:
