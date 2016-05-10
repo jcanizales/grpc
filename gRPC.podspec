@@ -56,10 +56,10 @@ Pod::Spec.new do |s|
   s.private_header_files = "#{src_dir}/private/*.h"
   s.header_mappings_dir = "#{objc_dir}"
 
-  s.dependency 'gRPC-Core', '~> 0.12'
-  s.framework = 'grpc'
+  s.dependency 'gRPC-Core', '~> 0.14'
+  # s.framework = 'grpc'
 
-  s.dependency 'RxLibrary', '~> 0.12'
+  s.dependency 'RxLibrary', '~> 0.14'
 
   s.pod_target_xcconfig = {
     'FRAMEWORK_SEARCH_PATHS' => '$(PODS_ROOT)/frameworks',

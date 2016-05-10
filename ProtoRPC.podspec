@@ -36,16 +36,17 @@
 
 Pod::Spec.new do |s|
   s.name     = 'ProtoRPC'
-  version = '0.12.0'
+  version = '0.14.0'
   s.version  = version
   s.summary  = 'RPC library for ProtocolBuffers, based on gRPC'
   s.homepage = 'http://www.grpc.io'
   s.license  = 'New BSD'
   s.authors  = { 'The gRPC contributors' => 'grpc-packages@google.com' }
 
-  s.source = { :git => 'https://github.com/grpc/grpc.git',
-               :tag => "release-#{version.gsub(/\./, '_')}-objectivec-#{version}" }
-
+  s.source = {
+    :git => 'https://github.com/grpc/grpc.git',
+    :tag => "release-#{version.gsub(/\./, '_')}-objectivec-#{version}",
+  }
 
   s.ios.deployment_target = '7.1'
   s.osx.deployment_target = '10.9'
@@ -55,7 +56,7 @@ Pod::Spec.new do |s|
   s.source_files = "#{src_dir}/*.{h,m}"
   s.header_mappings_dir = "#{src_dir}"
 
-  s.dependency 'gRPC', '~> 0.12'
-  s.dependency 'RxLibrary', '~> 0.12'
+  s.dependency 'gRPC', '~> 0.14'
+  s.dependency 'RxLibrary', '~> 0.14'
   s.dependency 'Protobuf', '~> 3.0.0-alpha-4'
 end

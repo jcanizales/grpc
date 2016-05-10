@@ -36,16 +36,17 @@
 
 Pod::Spec.new do |s|
   s.name     = 'RxLibrary'
-  version = '0.12.0'
+  version = '0.14.0'
   s.version  = version
   s.summary  = 'Reactive Extensions library for iOS/OSX.'
   s.homepage = 'http://www.grpc.io'
   s.license  = 'New BSD'
   s.authors  = { 'The gRPC contributors' => 'grpc-packages@google.com' }
 
-  s.source = { :git => 'https://github.com/grpc/grpc.git',
-               :tag => "release-#{version.gsub(/\./, '_')}-objectivec-#{version}" }
-
+  s.source = {
+    :git => 'https://github.com/grpc/grpc.git',
+    :tag => "release-#{version.gsub(/\./, '_')}-objectivec-#{version}",
+  }
 
   s.ios.deployment_target = '7.1'
   s.osx.deployment_target = '10.9'
