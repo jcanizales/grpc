@@ -1,10 +1,19 @@
 source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '8.0'
 
-pod 'Protobuf', :path => "../../../../third_party/protobuf"
-pod 'BoringSSL', :podspec => "../.."
-pod 'gRPC', :path => "../../../.."
-pod 'RemoteTest', :path => "../RemoteTestClient"
+install! 'cocoapods', :deterministic_uuids => false
+
+use_frameworks!
+
+def shared_pods
+  # pod 'BoringSSL', :podspec => ".."
+
+  pod 'RxLibrary', :path => "../../../.."
+  pod 'gRPC',      :path => "../../../.."
+  pod 'gRPC-Core', :path => "../../../.."
+  pod 'RxSwift'
+end
 
 target 'SwiftSample' do
+  shared_pods
 end
