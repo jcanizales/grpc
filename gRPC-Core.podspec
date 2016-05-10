@@ -43,6 +43,7 @@ Pod::Spec.new do |s|
   s.license  = 'New BSD'
   s.authors  = { 'The gRPC contributors' => 'grpc-packages@google.com' }
 
+  # TODO(jcanizales): Change this to point to a released, zipped framework.
   s.source = {
     :git => 'https://github.com/grpc/grpc.git',
     :tag => "release-#{version.gsub(/\./, '_')}-objectivec-#{version}",
@@ -51,13 +52,17 @@ Pod::Spec.new do |s|
 
   s.ios.deployment_target = '7.1'
   s.osx.deployment_target = '10.9'
-  s.requires_arc = false
+  # s.requires_arc = false
 
   s.module_name = 'grpc'
 
-  s.vendored_framework = 'src/objective-c/tests/Pods/frameworks/grpc.framework'
   s.xcconfig = { 'FRAMEWORK_SEARCH_PATHS' => '$(PODS_ROOT)/frameworks' }
+  s.vendored_framework = 'grpc.framework'
 
   s.libraries = 'z'
+  # TODO(jcanizales): Restore this.
   # s.dependency 'BoringSSL', '~> 2.0'
+
+  # TODO(jcanizales): Only if the script exists. Otherwise we're not local.
+  s.prepare_command = './src/objective-c/build_grpc_ios_framework.sh'
 end
