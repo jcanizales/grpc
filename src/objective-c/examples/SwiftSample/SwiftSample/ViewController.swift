@@ -19,7 +19,7 @@ class ViewController: UIViewController {
     NSLog("Hi from Swift!")
 
     var call = GRPCCall.init(host: "grpc-test.sandbox.googleapis.com",
-                             path: "grpc.testing.TestService/EmptyCall",
+                             path: "/grpc.testing.TestService/EmptyCall",
                              requestsWriter: GRXWriter.init(container: []))
     call.startWithWriteable(GRXWriteable.init(singleHandler: { (response, error) in
       if let response = response {
