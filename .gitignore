@@ -86,6 +86,7 @@ DerivedData
 # Objective-C generated files
 *.pbobjc.*
 *.pbrpc.*
+grpc.framework/
 
 # Cocoapods artifacts
 # Podfile.lock and the workspace file are tracked, to ease deleting them. That's
@@ -94,3 +95,10 @@ Pods/
 
 # Artifacts directory
 artifacts/
+
+# Bazel artifacts
+bazel-bin
+bazel-genfiles
+bazel-grpc
+bazel-out
+bazel-testlogs
