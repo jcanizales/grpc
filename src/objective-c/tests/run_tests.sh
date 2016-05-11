@@ -53,12 +53,11 @@ else
   # element of the pipe fails.
   set -o pipefail
 
-  XCODEBUILD_FILTER='(^===|^\*\*|\bfatal\b|\berror\b|\bwarning\b|\bfail)'
+  # TODO(jcanizales): Check that xcpretty is installed.
   xcodebuild \
       -workspace Tests.xcworkspace \
       -scheme AllTests \
       -destination name="iPhone 6" \
       test \
-      | egrep "$XCODEBUILD_FILTER" \
-      | egrep -v "(GPBDictionary|GPBArray)" -
+      | xcpretty
 fi
