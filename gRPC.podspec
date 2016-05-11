@@ -45,29 +45,21 @@ Pod::Spec.new do |s|
   }
 
   s.module_name = 'GRPCClient'
+  s.header_dir = 'GRPCClient'
 
   s.ios.deployment_target = '7.1'
   s.osx.deployment_target = '10.9'
   s.requires_arc = true
 
-  objc_dir = 'src/objective-c'
-  src_dir = "#{objc_dir}/GRPCClient"
+  src_dir = 'src/objective-c/GRPCClient'
   s.source_files = "#{src_dir}/*.{h,m}", "#{src_dir}/**/*.{h,m}"
   s.private_header_files = "#{src_dir}/private/*.h"
-  s.header_mappings_dir = "#{objc_dir}"
+  s.header_mappings_dir = "#{src_dir}"
 
   s.dependency 'gRPC-Core', '~> 0.14'
   # s.framework = 'grpc'
 
   s.dependency 'RxLibrary', '~> 0.14'
-
-  s.pod_target_xcconfig = {
-    'FRAMEWORK_SEARCH_PATHS' => '$(PODS_ROOT)/frameworks',
-    'HEADER_SEARCH_PATHS' => '"$(PODS_ROOT)/Headers/Public/gRPC-Core/include"',
-  }
-  s.user_target_xcconfig = {
-    'HEADER_SEARCH_PATHS' => '"$(PODS_ROOT)/Headers/Public/gRPC"',
-  }
 
   # Certificates, to be able to establish TLS connections:
   s.resource_bundles = { 'gRPCCertificates' => ['etc/roots.pem'] }

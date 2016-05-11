@@ -55,9 +55,12 @@ Pod::Spec.new do |s|
   # s.requires_arc = false
 
   s.module_name = 'grpc'
-
-  s.xcconfig = { 'FRAMEWORK_SEARCH_PATHS' => '$(PODS_ROOT)/frameworks' }
   s.vendored_framework = 'grpc.framework'
+
+  s.public_header_files = 'include/grpc/*.h',
+                          'include/grpc/support/*.h',
+                          'include/grpc/impl/codegen/*.h'
+  s.header_mappings_dir = 'include'
 
   s.libraries = 'z'
   # TODO(jcanizales): Restore this.
