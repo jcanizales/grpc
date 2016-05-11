@@ -9,7 +9,7 @@ end
 
 def shared_pods
   pod 'Protobuf', :path => "../../../third_party/protobuf"
-  pod 'BoringSSL', :podspec => ".."
+  # pod 'BoringSSL', :podspec => ".."
 
   pod 'RxLibrary', :path => "../../.."
   pod 'gRPC-Core', :path => "../../.."
