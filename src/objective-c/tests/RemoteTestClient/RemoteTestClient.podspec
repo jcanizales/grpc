@@ -29,7 +29,7 @@ Pod::Spec.new do |s|
     ss.source_files = "*.pbrpc.{h,m}"
     ss.header_mappings_dir = "."
     ss.requires_arc = true
-    ss.dependency "gRPC", "~> 0.13"
+    ss.dependency "ProtoRPC", "~> 0.14"
     ss.dependency "#{s.name}/Messages"
   end
 end
