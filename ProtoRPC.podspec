@@ -59,4 +59,9 @@ Pod::Spec.new do |s|
   s.dependency 'gRPC', '~> 0.14'
   s.dependency 'RxLibrary', '~> 0.14'
   s.dependency 'Protobuf', '~> 3.0.0-alpha-4'
+
+  # This is needed by pods that depend on Protobuf and want to work with frameworks.
+  s.pod_target_xcconfig = {
+    'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) GPB_USE_PROTOBUF_FRAMEWORK_IMPORTS=1',
+  }
 end
