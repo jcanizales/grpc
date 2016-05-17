@@ -77,6 +77,7 @@ xcodebuild -project bazel-bin/$TARGET_NAME.xcodeproj \
            -destination 'platform=iOS Simulator,OS=latest,name=iPhone 6s' \
            -derivedDataPath ./frameworks \
            build \
+           ARCHS="i386 x86_64" ONLY_ACTIVE_ARCH=NO \
            | xcpretty
 
 rm exported_symbols.txt
