@@ -40,16 +40,18 @@ git submodule update --init
 
 # TODO(jcanizales): Check dependencies are installed: Bazel, xcodeproj, xcpretty, and XCProj
 
+SDK_VERSION=`xcrun --sdk iphoneos --show-sdk-version`
+
 # Build the XCode project that will create the framework
 # TODO(jcanizales): Does Buck support creating dynamic frameworks that can be used out-of-the-box?
 TARGET_NAME=grpc_ios_framework
-bazel build --ios_sdk_version=9.3 :$TARGET_NAME
+bazel build --ios_sdk_version=$SDK_VERSION :$TARGET_NAME --verbose_failures
 
 # Get the symbols to export
 # TODO(jcanizales): Open issue with Bazel to export them alright.
 # TODO(jcanizales): Open issue with Bazel to declare lib${NAME}.a as an output of objc_library;
 # otherwise this can't easily be made a genrule.
-bazel build --ios_sdk_version=9.3 :grpc_objc
+bazel build --ios_sdk_version=$SDK_VERSION :grpc_objc --verbose_failures
 nm --extern-only --defined-only --no-sort --print-file-name bazel-bin/libgrpc_objc.a \
     | cut -d ' ' -f 4 \
     | sort > exported_symbols.txt
@@ -71,7 +73,8 @@ rm -rf ./frameworks
 set -o pipefail
 xcodebuild -project bazel-bin/$TARGET_NAME.xcodeproj \
            -scheme $TARGET_NAME \
-           -sdk iphonesimulator9.3 \
+           -sdk iphonesimulator \
+           -destination 'platform=iOS Simulator,OS=latest,name=iPhone 6s' \
            -derivedDataPath ./frameworks \
            build \
            | xcpretty
