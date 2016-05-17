@@ -52,7 +52,10 @@ bazel build --ios_sdk_version=$SDK_VERSION :$TARGET_NAME --verbose_failures
 # TODO(jcanizales): Open issue with Bazel to declare lib${NAME}.a as an output of objc_library;
 # otherwise this can't easily be made a genrule.
 bazel build --ios_sdk_version=$SDK_VERSION :grpc_objc --verbose_failures
-nm --extern-only --defined-only --no-sort --print-file-name bazel-bin/libgrpc_objc.a \
+# The nm that comes with XCode 7.3 has much saner options:
+# nm --extern-only --defined-only --no-sort --print-file-name
+# But we want to support 7.1 too.
+nm -g -U -p -A bazel-bin/libgrpc_objc.a \
     | cut -d ' ' -f 4 \
     | sort > exported_symbols.txt
 
