@@ -36,6 +36,8 @@ set -e
 cd $(dirname $0)
 cd ../.. # to the root of the repo
 
+git submodule update --init
+
 # TODO(jcanizales): Check dependencies are installed: Bazel, xcodeproj, xcpretty, and XCProj
 
 # Build the XCode project that will create the framework
