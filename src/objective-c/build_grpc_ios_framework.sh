@@ -73,7 +73,9 @@ xcproj --project bazel-bin/$TARGET_NAME.xcodeproj \
 # Build the framework
 # TODO(jcanizales): Use xcbuild?
 rm -rf ./frameworks
+
 set -o pipefail
+# Build it first for the simulator
 xcodebuild -project bazel-bin/$TARGET_NAME.xcodeproj \
            -scheme $TARGET_NAME \
            -sdk iphonesimulator \
@@ -83,23 +85,46 @@ xcodebuild -project bazel-bin/$TARGET_NAME.xcodeproj \
            ARCHS="i386 x86_64" ONLY_ACTIVE_ARCH=NO \
            | xcpretty
 
-rm exported_symbols.txt
 
 # Rename the framework
-TARGET_DIR="Build/Products/Debug-iphonesimulator"
+TARGET_DIR_SIM="Build/Products/Debug-iphonesimulator"
+TARGET_DIR_DEVICE="Build/Products/Debug-iphoneos"
 
 # Get the framework, rename it to "grpc," and clean up DerivedData directory
 rm -rf grpc.framework
 
-mv ./frameworks/$TARGET_DIR/$TARGET_NAME.framework .
+mv ./frameworks/$TARGET_DIR_SIM/$TARGET_NAME.framework .
 mv $TARGET_NAME.framework grpc.framework
-mv grpc.framework/$TARGET_NAME grpc.framework/grpc
+mv grpc.framework/$TARGET_NAME grpc.framework/grpc-simulator
 
-rm -rf ./frameworks
+
+# Build it again, for devices now.
+xcodebuild -project bazel-bin/$TARGET_NAME.xcodeproj \
+           -scheme $TARGET_NAME \
+           -sdk iphoneos \
+           -derivedDataPath ./frameworks \
+           build \
+           ARCHS="armv7 arm64" ONLY_ACTIVE_ARCH=NO \
+           | xcpretty
+
+rm exported_symbols.txt
+
+# Get the dynamic library to be lipo-ed with the first one.
+mv ./frameworks/$TARGET_DIR_DEVICE/$TARGET_NAME.framework/$TARGET_NAME grpc.framework/grpc-devices
+
 
 # Change the install path of the dynamic library so apps can find it.
 # TODO(jcanizales): Open issue on Bazel repo, as linkopts -install_name should be able to do this.
-install_name_tool -id @rpath/grpc.framework/grpc grpc.framework/grpc
+install_name_tool -id @rpath/grpc.framework/grpc grpc.framework/grpc-simulator
+
+# Same for the second binary
+install_name_tool -id @rpath/grpc.framework/grpc grpc.framework/grpc-devices
+
+# Lipo them together
+xcrun --sdk iphoneos lipo -create grpc.framework/grpc-simulator grpc.framework/grpc-devices -output grpc.framework/grpc
+rm grpc.framework/grpc-devices grpc.framework/grpc-simulator
+
+rm -rf ./frameworks
 
 # Copy the public headers
 cp -Rp include/grpc grpc.framework/Headers
