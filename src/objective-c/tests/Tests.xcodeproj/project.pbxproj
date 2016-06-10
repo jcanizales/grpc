@@ -11,25 +11,27 @@
 		08A8BB02D19A53D902B214B8 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 35F2B6BF3BAE8F0DC4AFD76E /* libPods.a */; };
 		50267643BA114A2A724D4FDF /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 35F2B6BF3BAE8F0DC4AFD76E /* libPods.a */; };
 		6312AE4E1B1BF49B00341DEE /* GRPCClientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6312AE4D1B1BF49B00341DEE /* GRPCClientTests.m */; };
+		633E59271D0B7B6600E44C40 /* E2ETests.m in Sources */ = {isa = PBXBuildFile; fileRef = 633E59261D0B7B6600E44C40 /* E2ETests.m */; };
+		633E59291D0B7B6600E44C40 /* libTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 635697C71B14FC11007A7283 /* libTests.a */; };
 		63423F4A1B150A5F006CF63C /* libTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 635697C71B14FC11007A7283 /* libTests.a */; };
 		635697CD1B14FC11007A7283 /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 635697CC1B14FC11007A7283 /* Tests.m */; };
 		635ED2EC1B1A3BC400FDE5C3 /* InteropTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 635ED2EB1B1A3BC400FDE5C3 /* InteropTests.m */; };
 		63715F561B780C020029CB0B /* InteropTestsLocalCleartext.m in Sources */ = {isa = PBXBuildFile; fileRef = 63715F551B780C020029CB0B /* InteropTestsLocalCleartext.m */; };
-		6379CC4D1BE1662A001BC0A1 /* InteropTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 635ED2EB1B1A3BC400FDE5C3 /* InteropTests.m */; settings = {ASSET_TAGS = (); }; };
-		6379CC4E1BE1662B001BC0A1 /* InteropTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 635ED2EB1B1A3BC400FDE5C3 /* InteropTests.m */; settings = {ASSET_TAGS = (); }; };
-		6379CC501BE16703001BC0A1 /* InteropTestsRemote.m in Sources */ = {isa = PBXBuildFile; fileRef = 6379CC4F1BE16703001BC0A1 /* InteropTestsRemote.m */; settings = {ASSET_TAGS = (); }; };
-		6379CC511BE1683B001BC0A1 /* InteropTestsRemote.m in Sources */ = {isa = PBXBuildFile; fileRef = 6379CC4F1BE16703001BC0A1 /* InteropTestsRemote.m */; settings = {ASSET_TAGS = (); }; };
-		6379CC531BE17709001BC0A1 /* TestCertificates.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 63E240CF1B6C63DC005F3B0E /* TestCertificates.bundle */; settings = {ASSET_TAGS = (); }; };
-		63DC84181BE15179000708E8 /* libTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 635697C71B14FC11007A7283 /* libTests.a */; settings = {ASSET_TAGS = (); }; };
-		63DC841E1BE15180000708E8 /* RxLibraryUnitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 63423F501B151B77006CF63C /* RxLibraryUnitTests.m */; settings = {ASSET_TAGS = (); }; };
-		63DC84281BE15267000708E8 /* libTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 635697C71B14FC11007A7283 /* libTests.a */; settings = {ASSET_TAGS = (); }; };
-		63DC842E1BE15278000708E8 /* RxLibraryUnitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 63423F501B151B77006CF63C /* RxLibraryUnitTests.m */; settings = {ASSET_TAGS = (); }; };
-		63DC842F1BE1527D000708E8 /* InteropTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 635ED2EB1B1A3BC400FDE5C3 /* InteropTests.m */; settings = {ASSET_TAGS = (); }; };
-		63DC84391BE15294000708E8 /* libTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 635697C71B14FC11007A7283 /* libTests.a */; settings = {ASSET_TAGS = (); }; };
-		63DC84481BE152B5000708E8 /* libTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 635697C71B14FC11007A7283 /* libTests.a */; settings = {ASSET_TAGS = (); }; };
-		63DC844E1BE15350000708E8 /* InteropTestsLocalCleartext.m in Sources */ = {isa = PBXBuildFile; fileRef = 63715F551B780C020029CB0B /* InteropTestsLocalCleartext.m */; settings = {ASSET_TAGS = (); }; };
-		63DC844F1BE15353000708E8 /* InteropTestsLocalSSL.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E240CD1B6C4E2B005F3B0E /* InteropTestsLocalSSL.m */; settings = {ASSET_TAGS = (); }; };
-		63DC84501BE153AA000708E8 /* GRPCClientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6312AE4D1B1BF49B00341DEE /* GRPCClientTests.m */; settings = {ASSET_TAGS = (); }; };
+		6379CC4D1BE1662A001BC0A1 /* InteropTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 635ED2EB1B1A3BC400FDE5C3 /* InteropTests.m */; };
+		6379CC4E1BE1662B001BC0A1 /* InteropTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 635ED2EB1B1A3BC400FDE5C3 /* InteropTests.m */; };
+		6379CC501BE16703001BC0A1 /* InteropTestsRemote.m in Sources */ = {isa = PBXBuildFile; fileRef = 6379CC4F1BE16703001BC0A1 /* InteropTestsRemote.m */; };
+		6379CC511BE1683B001BC0A1 /* InteropTestsRemote.m in Sources */ = {isa = PBXBuildFile; fileRef = 6379CC4F1BE16703001BC0A1 /* InteropTestsRemote.m */; };
+		6379CC531BE17709001BC0A1 /* TestCertificates.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 63E240CF1B6C63DC005F3B0E /* TestCertificates.bundle */; };
+		63DC84181BE15179000708E8 /* libTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 635697C71B14FC11007A7283 /* libTests.a */; };
+		63DC841E1BE15180000708E8 /* RxLibraryUnitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 63423F501B151B77006CF63C /* RxLibraryUnitTests.m */; };
+		63DC84281BE15267000708E8 /* libTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 635697C71B14FC11007A7283 /* libTests.a */; };
+		63DC842E1BE15278000708E8 /* RxLibraryUnitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 63423F501B151B77006CF63C /* RxLibraryUnitTests.m */; };
+		63DC842F1BE1527D000708E8 /* InteropTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 635ED2EB1B1A3BC400FDE5C3 /* InteropTests.m */; };
+		63DC84391BE15294000708E8 /* libTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 635697C71B14FC11007A7283 /* libTests.a */; };
+		63DC84481BE152B5000708E8 /* libTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 635697C71B14FC11007A7283 /* libTests.a */; };
+		63DC844E1BE15350000708E8 /* InteropTestsLocalCleartext.m in Sources */ = {isa = PBXBuildFile; fileRef = 63715F551B780C020029CB0B /* InteropTestsLocalCleartext.m */; };
+		63DC844F1BE15353000708E8 /* InteropTestsLocalSSL.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E240CD1B6C4E2B005F3B0E /* InteropTestsLocalSSL.m */; };
+		63DC84501BE153AA000708E8 /* GRPCClientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6312AE4D1B1BF49B00341DEE /* GRPCClientTests.m */; };
 		63E240CE1B6C4E2B005F3B0E /* InteropTestsLocalSSL.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E240CD1B6C4E2B005F3B0E /* InteropTestsLocalSSL.m */; };
 		63E240D01B6C63DC005F3B0E /* TestCertificates.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 63E240CF1B6C63DC005F3B0E /* TestCertificates.bundle */; };
 		7D8A186224D39101F90230F6 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 35F2B6BF3BAE8F0DC4AFD76E /* libPods.a */; };
@@ -37,6 +39,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		633E592A1D0B7B6600E44C40 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 635697BF1B14FC11007A7283 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 635697C61B14FC11007A7283;
+			remoteInfo = Tests;
+		};
 		63423F4B1B150A5F006CF63C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 635697BF1B14FC11007A7283 /* Project object */;
@@ -90,6 +99,8 @@
 		0A4F89D9C90E9C30990218F0 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		35F2B6BF3BAE8F0DC4AFD76E /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		6312AE4D1B1BF49B00341DEE /* GRPCClientTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GRPCClientTests.m; sourceTree = "<group>"; };
+		633E59241D0B7B6600E44C40 /* E2ETests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = E2ETests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		633E59261D0B7B6600E44C40 /* E2ETests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = E2ETests.m; sourceTree = "<group>"; };
 		63423F441B150A5F006CF63C /* AllTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AllTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		63423F501B151B77006CF63C /* RxLibraryUnitTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RxLibraryUnitTests.m; sourceTree = "<group>"; };
 		635697C71B14FC11007A7283 /* libTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libTests.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -109,6 +120,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		633E59211D0B7B6600E44C40 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				633E59291D0B7B6600E44C40 /* libTests.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		63423F411B150A5F006CF63C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -181,11 +200,20 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		633E59251D0B7B6600E44C40 /* E2ETests */ = {
+			isa = PBXGroup;
+			children = (
+				633E59261D0B7B6600E44C40 /* E2ETests.m */,
+			);
+			path = E2ETests;
+			sourceTree = "<group>";
+		};
 		635697BE1B14FC11007A7283 = {
 			isa = PBXGroup;
 			children = (
 				635697C91B14FC11007A7283 /* Tests */,
 				63E240CF1B6C63DC005F3B0E /* TestCertificates.bundle */,
+				633E59251D0B7B6600E44C40 /* E2ETests */,
 				635697C81B14FC11007A7283 /* Products */,
 				51E4650F34F854F41FF053B3 /* Pods */,
 				136D535E19727099B941D7B1 /* Frameworks */,
@@ -201,6 +229,7 @@
 				63DC84231BE15267000708E8 /* InteropTestsRemote.xctest */,
 				63DC84341BE15294000708E8 /* InteropTestsLocalSSL.xctest */,
 				63DC84431BE152B5000708E8 /* InteropTestsLocalCleartext.xctest */,
+				633E59241D0B7B6600E44C40 /* E2ETests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -232,6 +261,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		633E59231D0B7B6600E44C40 /* E2ETests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 633E592E1D0B7B6600E44C40 /* Build configuration list for PBXNativeTarget "E2ETests" */;
+			buildPhases = (
+				633E59201D0B7B6600E44C40 /* Sources */,
+				633E59211D0B7B6600E44C40 /* Frameworks */,
+				633E59221D0B7B6600E44C40 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				633E592B1D0B7B6600E44C40 /* PBXTargetDependency */,
+			);
+			name = E2ETests;
+			productName = E2ETests;
+			productReference = 633E59241D0B7B6600E44C40 /* E2ETests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		63423F431B150A5F006CF63C /* AllTests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 63423F4D1B150A5F006CF63C /* Build configuration list for PBXNativeTarget "AllTests" */;
@@ -363,6 +410,9 @@
 				LastUpgradeCheck = 0630;
 				ORGANIZATIONNAME = gRPC;
 				TargetAttributes = {
+					633E59231D0B7B6600E44C40 = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
 					63423F431B150A5F006CF63C = {
 						CreatedOnToolsVersion = 6.3.1;
 					};
@@ -401,11 +451,19 @@
 				63DC84221BE15267000708E8 /* InteropTestsRemote */,
 				63DC84331BE15294000708E8 /* InteropTestsLocalSSL */,
 				63DC84421BE152B5000708E8 /* InteropTestsLocalCleartext */,
+				633E59231D0B7B6600E44C40 /* E2ETests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		633E59221D0B7B6600E44C40 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		63423F421B150A5F006CF63C /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -674,6 +732,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		633E59201D0B7B6600E44C40 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				633E59271D0B7B6600E44C40 /* E2ETests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		63423F401B150A5F006CF63C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -734,6 +800,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		633E592B1D0B7B6600E44C40 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 635697C61B14FC11007A7283 /* Tests */;
+			targetProxy = 633E592A1D0B7B6600E44C40 /* PBXContainerItemProxy */;
+		};
 		63423F4C1B150A5F006CF63C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 635697C61B14FC11007A7283 /* Tests */;
@@ -762,6 +833,34 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		633E592C1D0B7B6600E44C40 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = YES;
+				INFOPLIST_FILE = Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = io.grpc.E2ETests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		633E592D1D0B7B6600E44C40 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = io.grpc.E2ETests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		63423F4E1B150A5F006CF63C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = FF7B5489BCFE40111D768DD0 /* Pods.debug.xcconfig */;
@@ -995,6 +1094,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		633E592E1D0B7B6600E44C40 /* Build configuration list for PBXNativeTarget "E2ETests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				633E592C1D0B7B6600E44C40 /* Debug */,
+				633E592D1D0B7B6600E44C40 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		63423F4D1B150A5F006CF63C /* Build configuration list for PBXNativeTarget "AllTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
