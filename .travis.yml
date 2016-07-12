@@ -41,6 +41,7 @@ before_install:
   - brew install gflags
 install:
   - pushd $TEST_PATH
+  - pod cache clean --all
   - pod install --verbose
   - popd
 before_script:
