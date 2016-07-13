@@ -38,14 +38,11 @@ before_install:
   - gem uninstall cocoapods -a
   - gem install cocoapods -v '1.0.1'
   - pod --version
+  - pod repo update
+  - pod spec cat "!ProtoCompiler-gRPCPlugin"
   - brew install gflags
 install:
   - pushd $TEST_PATH
-  - pod cache clean --all
-  - pod repo update
-  - pod repo list
-  - pod search !ProtoCompiler-gRPCPlugin
-  - pod spec cat !ProtoCompiler-gRPCPlugin
   - pod install --verbose
   - popd
 before_script:
