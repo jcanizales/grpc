@@ -42,6 +42,10 @@ before_install:
 install:
   - pushd $TEST_PATH
   - pod cache clean --all
+  - pod repo update
+  - pod repo list
+  - pod search !ProtoCompiler-gRPCPlugin
+  - pod spec cat !ProtoCompiler-gRPCPlugin
   - pod install --verbose
   - popd
 before_script:
