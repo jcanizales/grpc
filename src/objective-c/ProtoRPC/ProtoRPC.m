@@ -33,6 +33,7 @@
 
 #import "ProtoRPC.h"
 
+#import <GRPCClient/GRPCError.h>
 #if GPB_USE_PROTOBUF_FRAMEWORK_IMPORTS
  #import <Protobuf/GPBProtocolBuffers.h>
 #else
@@ -42,19 +43,16 @@
 #import <RxLibrary/GRXWriter+Transformations.h>
 
 static NSError *ErrorForBadProto(id proto, Class expectedClass, NSError *parsingError) {
-  NSDictionary *info = @{
-                         NSLocalizedDescriptionKey: @"Unable to parse response from the server",
-                         NSLocalizedRecoverySuggestionErrorKey: @"If this RPC is idempotent, retry "
-                         @"with exponential backoff. Otherwise, query the server status before "
-                         @"retrying.",
-                         NSUnderlyingErrorKey: parsingError,
-                         @"Expected class": expectedClass,
-                         @"Received value": proto,
-                         };
-  // TODO(jcanizales): Use kGRPCErrorDomain and GRPCErrorCodeInternal when they're public.
-  return [NSError errorWithDomain:@"io.grpc"
-                             code:13
-                         userInfo:info];
+  GRPCMutableError *error = [GRPCMutableError internal];
+
+  error.localizedDescription = @"Unable to parse response from the server";
+  error.userInfo[NSLocalizedRecoverySuggestionErrorKey] = @"If this RPC is idempotent, retry with "
+      @"exponential backoff. Otherwise, query the server status before retrying.";
+
+  error.userInfo[NSUnderlyingErrorKey] = parsingError;
+  error.userInfo[@"Expected class"] = expectedClass;
+  error.userInfo[@"Received value"] = proto;
+  return error;
 }
 
 @implementation ProtoRPC {

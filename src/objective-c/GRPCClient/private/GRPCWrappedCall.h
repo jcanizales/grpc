@@ -76,7 +76,7 @@
 
 @interface GRPCOpRecvStatus : GRPCOperation
 
-- (instancetype)initWithHandler:(void(^)(NSError *, NSDictionary *))handler
+- (instancetype)initWithHandler:(void(^)(GRPCError *, NSDictionary *))handler
     NS_DESIGNATED_INITIALIZER;
 
 @end

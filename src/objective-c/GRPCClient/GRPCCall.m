@@ -43,10 +43,6 @@
 #import "private/GRPCWrappedCall.h"
 #import "private/NSData+GRPC.h"
 #import "private/NSDictionary+GRPC.h"
-#import "private/NSError+GRPC.h"
-
-NSString * const kGRPCHeadersKey = @"io.grpc.HeadersKey";
-NSString * const kGRPCTrailersKey = @"io.grpc.TrailersKey";
 
 @interface GRPCCall () <GRXWriteable>
 // Make them read-write.
@@ -160,9 +156,7 @@ NSString * const kGRPCTrailersKey = @"io.grpc.TrailersKey";
 }
 
 - (void)cancel {
-  [self finishWithError:[NSError errorWithDomain:kGRPCErrorDomain
-                                            code:GRPCErrorCodeCancelled
-                                        userInfo:@{NSLocalizedDescriptionKey: @"Canceled by app"}]];
+  [self finishWithError:[[GRPCError cancelled] errorWithMessage:@"Canceled by app"]];
   [self cancelCall];
 }
 
@@ -212,9 +206,7 @@ NSString * const kGRPCTrailersKey = @"io.grpc.TrailersKey";
         // TODO(jcanizales): No canonical code is appropriate for this situation
         // (because it's just a client problem). Use another domain and an
         // appropriately-documented code.
-        [weakSelf finishWithError:[NSError errorWithDomain:kGRPCErrorDomain
-                                                      code:GRPCErrorCodeInternal
-                                                  userInfo:nil]];
+        [weakSelf finishWithError:[GRPCError internal]];
         [weakSelf cancelCall];
         return;
       }
@@ -266,9 +258,7 @@ NSString * const kGRPCTrailersKey = @"io.grpc.TrailersKey";
   __weak GRPCCall *weakSelf = self;
   dispatch_async(_callQueue, ^{
     [weakSelf writeMessage:value withErrorHandler:^{
-      [weakSelf finishWithError:[NSError errorWithDomain:kGRPCErrorDomain
-                                                    code:GRPCErrorCodeInternal
-                                                userInfo:nil]];
+      [weakSelf finishWithError:[GRPCError internal]];
     }];
   });
 }
@@ -287,9 +277,7 @@ NSString * const kGRPCTrailersKey = @"io.grpc.TrailersKey";
     __weak GRPCCall *weakSelf = self;
     dispatch_async(_callQueue, ^{
       [weakSelf finishRequestWithErrorHandler:^{
-        [weakSelf finishWithError:[NSError errorWithDomain:kGRPCErrorDomain
-                                                      code:GRPCErrorCodeInternal
-                                                  userInfo:nil]];
+        [weakSelf finishWithError:[GRPCError internal]];
       }];
     });
   }
@@ -302,7 +290,7 @@ NSString * const kGRPCTrailersKey = @"io.grpc.TrailersKey";
 // The first one (headersHandler), when the response headers are received.
 // The second one (completionHandler), whenever the RPC finishes for any reason.
 - (void)invokeCallWithHeadersHandler:(void(^)(NSDictionary *))headersHandler
-                    completionHandler:(void(^)(NSError *, NSDictionary *))completionHandler {
+                    completionHandler:(void(^)(GRPCError *, NSDictionary *))completionHandler {
   // TODO(jcanizales): Add error handlers for async failures
   [_wrappedCall startBatchWithOperations:@[[[GRPCOpRecvMetadata alloc]
                                             initWithHandler:headersHandler]]];
@@ -315,24 +303,21 @@ NSString * const kGRPCTrailersKey = @"io.grpc.TrailersKey";
     // Response headers received.
     self.responseHeaders = headers;
     [self startNextRead];
-  } completionHandler:^(NSError *error, NSDictionary *trailers) {
+  } completionHandler:^(GRPCError *error, NSDictionary *trailers) {
     self.responseTrailers = trailers;
 
     if (error) {
-      NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
-      if (error.userInfo) {
-        [userInfo addEntriesFromDictionary:error.userInfo];
-      }
-      userInfo[kGRPCTrailersKey] = self.responseTrailers;
+      GRPCMutableError *errorWithTrailers = [GRPCMutableError errorWithError:error];
+      errorWithTrailers.userInfo[kGRPCTrailersKey] = self.responseTrailers;
       // TODO(jcanizales): The C gRPC library doesn't guarantee that the headers block will be
       // called before this one, so an error might end up with trailers but no headers. We
       // shouldn't call finishWithError until ater both blocks are called. It is also when this is
       // done that we can provide a merged view of response headers and trailers in a thread-safe
       // way.
       if (self.responseHeaders) {
-        userInfo[kGRPCHeadersKey] = self.responseHeaders;
+        errorWithTrailers.userInfo[kGRPCHeadersKey] = self.responseHeaders;
       }
-      error = [NSError errorWithDomain:error.domain code:error.code userInfo:userInfo];
+      error = errorWithTrailers;
     }
     [self finishWithError:error];
   }];
@@ -374,9 +359,7 @@ NSString * const kGRPCTrailersKey = @"io.grpc.TrailersKey";
   [_connectivityMonitor handleLossWithHandler:^{
     typeof(self) strongSelf = weakSelf;
     if (strongSelf) {
-      [strongSelf finishWithError:[NSError errorWithDomain:kGRPCErrorDomain
-                                                      code:GRPCErrorCodeUnavailable
-                                                  userInfo:@{NSLocalizedDescriptionKey: @"Connectivity lost."}]];
+      [strongSelf finishWithError:[[GRPCError unavailable] errorWithMessage:@"Connectivity lost"]];
       [[GRPCHost hostWithAddress:strongSelf->_host] disconnect];
     }
   }];

@@ -42,7 +42,7 @@
 #import "GRPCHost.h"
 #import "NSDictionary+GRPC.h"
 #import "NSData+GRPC.h"
-#import "NSError+GRPC.h"
+#import "../GRPCError.h"
 
 @implementation GRPCOperation {
 @protected
@@ -195,7 +195,7 @@
   return [self initWithHandler:nil];
 }
 
-- (instancetype) initWithHandler:(void (^)(NSError *, NSDictionary *))handler {
+- (instancetype) initWithHandler:(void (^)(GRPCError *, NSDictionary *))handler {
   if (self = [super init]) {
     _op.op = GRPC_OP_RECV_STATUS_ON_CLIENT;
     _op.data.recv_status_on_client.status = &_statusCode;
@@ -208,8 +208,8 @@
       __weak typeof(self) weakSelf = self;
       _handler = ^{
         __strong typeof(self) strongSelf = weakSelf;
-        NSError *error = [NSError grpc_errorFromStatusCode:strongSelf->_statusCode
-                                                   details:strongSelf->_details];
+        GRPCError *error = [GRPCError errorFromStatusCode:strongSelf->_statusCode
+                                                details:strongSelf->_details];
         NSDictionary *trailers = [NSDictionary
                                   grpc_dictionaryFromMetadataArray:strongSelf->_trailers];
         handler(error, trailers);
